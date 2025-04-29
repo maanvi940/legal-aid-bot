@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FAQ - Constitutional Rights Assistant</title>
+<script src="https://cdn.tailwindcss.com/3.4.16"></script>
+<script>tailwind.config={theme:{extend:{colors:{primary:'#000080',secondary:'#FF9933'},borderRadius:{'none':'0px','sm':'4px',DEFAULT:'8px','md':'12px','lg':'16px','xl':'20px','2xl':'24px','3xl':'32px','full':'9999px','button':'8px'}}}}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css" rel="stylesheet">
+<style>
+:where([class^="ri-"])::before { content: "\f3c2"; }
+body {
+    font-family: 'Lora', serif;
+    background-color: #FDF5E6;
+}
+.hero-section {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400' viewBox='0 0 400 400'%3E%3Ctext x='20' y='20' font-family='Arial' font-size='10' fill='%23000080' opacity='0.03' transform='rotate(45 200 200)'%3EWe, the people of India, having solemnly resolved to constitute India into a sovereign democratic republic and to secure to all its citizens: Justice, Liberty, Equality, Fraternity%3C/text%3E%3C/svg%3E");
+    background-repeat: repeat;
+}
+.scroll-pattern {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='20' viewBox='0 0 100 20'%3E%3Cpath d='M0,10 C30,20 70,0 100,10' fill='none' stroke='%23000080' stroke-width='0.5' opacity='0.2'/%3E%3C/svg%3E");
+    background-repeat: repeat-x;
+    background-size: 100px 20px;
+    height: 20px;
+}
+.faq-card {
+    transition: all 0.3s ease;
+}
+.faq-card:hover {
+    transform: translateY(-2px);
+}
+.faq-item {
+    border-bottom: 1px solid rgba(0, 0, 128, 0.1);
+}
+.faq-item:last-child {
+    border-bottom: none;
+}
+.faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+}
+.faq-answer.active {
+    max-height: 1000px;
+}
+.search-input {
+    background-color: rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(0, 0, 128, 0.2);
+}
+.search-input:focus {
+    box-shadow: 0 0 0 3px rgba(0, 0, 128, 0.1);
+}
+.back-to-top {
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+.back-to-top.visible {
+    opacity: 1;
+    visibility: visible;
+}
+</style>
+</head>
+<body>
+<header class="bg-white shadow-md">
+    <div class="container mx-auto px-4 py-3">
+        <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-4">
+                <div class="w-10 h-10 flex items-center justify-center">
+                    <img src="https://readdy.ai/api/search-image?query=scales%2520of%2520justice%2520in%2520a%2520shield%252C%2520navy%2520blue%2520color%252C%2520simple%2520logo%252C%2520professional%252C%2520clean%2520lines%252C%2520minimalist%2520design&width=80&height=80&seq=123&orientation=squarish" alt="Legal Assistant Logo" class="h-10">
+                </div>
+                <h1 class="text-primary text-xl font-semibold">Constitutional Rights Assistant</h1>
+            </div>
+            <div class="hidden md:flex items-center space-x-6">
+                <a href="https://readdy.ai/home/d1f7711b-cca5-4813-ac9e-56dc8ef41008/0abf9d5e-f0c1-49d0-81f9-12655ebcd390" data-readdy="true" class="text-gray-800 hover:text-primary transition-colors">Home</a>
+                <a href="#" class="text-primary font-medium transition-colors">FAQ</a>
+                <a href="#" class="text-gray-800 hover:text-primary transition-colors">Legal Topics</a>
+                <a href="#" class="text-gray-800 hover:text-primary transition-colors">Contact</a>
+            </div>
+            <div class="md:hidden">
+                <button class="w-10 h-10 flex items-center justify-center text-primary">
+                    <i class="ri-menu-line ri-lg"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</header>
+
+<main>
+    <section class="hero-section py-8 md:py-12">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto">
+                <div class="flex items-center text-sm text-gray-600 mb-4">
+                    <a href="https://readdy.ai/home/d1f7711b-cca5-4813-ac9e-56dc8ef41008/0abf9d5e-f0c1-49d0-81f9-12655ebcd390" data-readdy="true" class="hover:text-primary">Home</a>
+                    <span class="mx-2">/</span>
+                    <span class="text-primary">FAQ</span>
+                </div>
+                <h1 class="text-3xl md:text-4xl font-bold text-primary mb-4">Frequently Asked Questions</h1>
+                <p class="text-lg text-gray-700 mb-8">Find answers to common questions about constitutional rights, legal procedures, and our assistance service.</p>
+                
+                <div class="relative mb-8">
+                    <input type="text" id="searchFaq" class="search-input w-full py-3 px-4 pl-12 !rounded-button focus:outline-none" placeholder="Search for questions...">
+                    <div class="absolute left-4 top-1/2 transform -translate-y-1/2 w-6 h-6 flex items-center justify-center text-gray-500">
+                        <i class="ri-search-line ri-lg"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="scroll-pattern w-full"></div>
+
+    <section class="py-10">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-2 gap-6 max-w-6xl mx-auto">
+                <!-- About Our Service -->
+                <div class="faq-card bg-white p-6 rounded-lg shadow-md">
+                    <div class="flex items-center mb-4">
+                        <div class="w-10 h-10 flex items-center justify-center bg-primary bg-opacity-10 !rounded-full mr-3">
+                            <i class="ri-information-line ri-lg text-primary"></i>
+                        </div>
+                        <h2 class="text-xl font-semibold text-primary">About Our Service</h2>
+                    </div>
+                    
+                    <div class="space-y-4">
+                        <div class="faq-item pb-4">
+                            <div class="faq-question flex justify-between items-center cursor-pointer">
+                                <h3 class="font-medium text-gray-800">What is the Constitutional Rights Assistant?</h3>
+                                <div class="w-6 h-6 flex items-center justify-center text-primary">
+                                    <i class="ri-arrow-down-s-line faq-arrow"></i>
+                                </div>
+                            </div>
+                            <div class="faq-answer mt-2 text-gray-600">
+                                <p>The Constitutional Rights Assistant is an AI-powered service designed to help citizens understand their constitutional rights and navigate legal procedures in India. Our platform provides information on fundamental rights, legal processes, and government services in multiple Indian languages.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="faq-item pb-4">
+                            <div class="faq-question flex justify-between items-center cursor-pointer">
+                                <h3 class="font-medium text-gray-800">Is this service free to use?</h3>
+                                <div class="w-6 h-6 flex items-center justify-center text-primary">
+                                    <i class="ri-arrow-down-s-line faq-arrow"></i>
+                                </div>
+                            </div>
+                            <div class="faq-answer mt-2 text-gray-600">
+                                <p>Yes, the Constitutional Rights Assistant is completely free to use. Our mission is to make legal information accessible to all citizens regardless of their economic background. There are no hidden fees or subscription charges.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="faq-item pb-4">
+                            <div class="faq-question flex justify-between items-center cursor-pointer">
+                                <h3 class="font-medium text-gray-800">What languages are supported?</h3>
+                                <div class="w-6 h-6 flex items-center justify-center text-primary">
+                                    <i class="ri-arrow-down-s-line faq-arrow"></i>
+                                </div>
+                            </div>
+                            <div class="faq-answer mt-2 text-gray-600">
+                                <p>Our service currently supports the following languages:</p>
+                                <ul class="list-disc pl-5 mt-2">
+                                    <li>English</li>
+                                    <li>Hindi (हिंदी)</li>
+                                    <li>Bengali (বাংলা)</li>
+                                    <li>Telugu (తెలుగు)</li>
+                                    <li>Tamil (தமிழ்)</li>
+                                    <li>Marathi (मराठी)</li>
+                                    <li>Gujarati (ગુજરાતી)</li>
+                                    <li>Kannada (ಕನ್ನಡ)</li>
+                                    <li>Malayalam (മലയാളം)</li>
+                                    <li>Punjabi (ਪੰਜਾਬੀ)</li>
+                                </ul>
+                                <p class="mt-2">We are continuously working to add more regional languages to make our service accessible to all Indian citizens.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="faq-item pb-4">
+                            <div class="faq-question flex justify-between items-center cursor-pointer">
+                                <h3 class="font-medium text-gray-800">Is my conversation with the assistant private?</h3>
+                                <div class="w-6 h-6 flex items-center justify-center text-primary">
+                                    <i class="ri-arrow-down-s-line faq-arrow"></i>
+                                </div>
+                            </div>
+                            <div class="faq-answer mt-2 text-gray-600">
+                                <p>Yes, your conversations with our Constitutional Rights Assistant are private and confidential. We do not share your personal information or conversation details with third parties. However, please note that the service is for informational purposes only, and you should consult with a qualified legal professional for specific legal advice.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Constitutional Rights Basics -->
+                <div class="faq-card bg-white p-6 rounded-lg shadow-md">
+                    <div class="flex items-center mb-4">
+                        <div class="w-10 h-10 flex items-center justify-center bg-secondary bg-opacity-10 !rounded-full mr-3">
+                            <i class="ri-file-list-3-line ri-lg text-secondary"></i>
+                        </div>
+                        <h2 class="text-xl font-semibold text-primary">Constitutional Rights Basics</h2>
+                    </div>
+                    
+                    <div class="space-y-4">
+                        <div class="faq-item pb-4">
+                            <div class="faq-question flex justify-between items-center cursor-pointer">
+                                <h3 class="font-medium text-gray-800">What are Fundamental Rights in India?</h3>
+                                <div class="w-6 h-6 flex items-center justify-center text-primary">
+                                    <i class="ri-arrow-down-s-line faq-arrow"></i>
+                                </div>
+                            </div>
+                            <div class="faq-answer mt-2 text-gray-600">
+                                <p>Fundamental Rights are the basic human rights enshrined in the Constitution of India which are guaranteed to all citizens. They are enforceable by the courts, subject to specific restrictions. The six fundamental rights include:</p>
+                                <ul class="list-disc pl-5 mt-2">
+                                    <li>Right to Equality (Articles 14-18)</li>
+                                    <li>Right to Freedom (Articles 19-22)</li>
+                                    <li>Right against Exploitation (Articles 23-24)</li>
+                                    <li>Right to Freedom of Religion (Articles 25-28)</li>
+                                    <li>Cultural and Educational Rights (Articles 29-30)</li>
+                                    <li>Right to Constitutional Remedies (Article 32)</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="faq-item pb-4">
+                            <div class="faq-question flex justify-between items-center cursor-pointer">
+                                <h3 class="font-medium text-gray-800">Can fundamental rights be suspended?</h3>
+                                <div class="w-6 h-6 flex items-center justify-center text-primary">
+                                    <i class="ri-arrow-down-s-line faq-arrow"></i>
+                                </div>
+                            </div>
+                            <div class="faq-answer mt-2 text-gray-600">
+                                <p>Yes, fundamental rights can be suspended during a state of emergency. Under Article 352 of the Indian Constitution, when a national emergency is declared, certain fundamental rights under Article 19 can be automatically suspended. However, rights under Articles 20 and 21 (protection in respect of conviction for offenses and right to life and personal liberty) cannot be suspended even during an emergency.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="faq-item pb-4">
+                            <div class="faq-question flex justify-between items-center cursor-pointer">
+                                <h3 class="font-medium text-gray-800">What is a writ petition?</h3>
+                                <div class="w-6 h-6 flex items-center justify-center text-primary">
+                                    <i class="ri-arrow-down-s-line faq-arrow"></i>
+                                </div>
+                            </div>
+                            <div class="faq-answer mt-2 text-gray-600">
+                                <p>A writ petition is a formal written application made to a court exercising extraordinary jurisdiction. In India, under Article 32 and Article 226 of the Constitution, the Supreme Court and High Courts respectively can issue writs for enforcement of fundamental rights. The five types of writs are:</p>
+                                <ul class="list-disc pl-5 mt-2">
+                                    <li>Habeas Corpus: To produce a person who has been detained</li>
+                                    <li>Mandamus: To command a public authority to perform its duty</li>
+                                    <li>Prohibition: To prohibit a lower court from proceeding with a case</li>
+                                    <li>Certiorari: To transfer a case from a lower court to a higher court</li>
+                                    <li>Quo Warranto: To question the legal right of a person holding a public office</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="faq-item pb-4">
+                            <div class="faq-question flex justify-between items-center cursor-pointer">
+                                <h3 class="font-medium text-gray-800">What is the difference between Fundamental Rights and Directive Principles?</h3>
+                                <div class="w-6 h-6 flex items-center justify-center text-primary">
+                                    <i class="ri-arrow-down-s-line faq-arrow"></i>
+                                </div>
+                            </div>
+                            <div class="faq-answer mt-2 text-gray-600">
+                                <p>The key differences between Fundamental Rights and Directive Principles of State Policy are:</p>
+                                <ul class="list-disc pl-5 mt-2">
+                                    <li><strong>Enforceability:</strong> Fundamental Rights are enforceable by courts, while Directive Principles are not enforceable by any court.</li>
+                                    <li><strong>Nature:</strong> Fundamental Rights are mostly negative in nature (prohibit the state from doing something), while Directive Principles are positive (direct the state to secure certain objectives).</li>
+                                    <li><strong>Aim:</strong> Fundamental Rights aim to establish political democracy, while Directive Principles aim to establish social and economic democracy.</li>
+                                    <li><strong>Priority:</strong> In case of conflict, Fundamental Rights generally prevail over Directive Principles, though the Constitution has been amended to give priority to certain Directive Principles.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Using the Assistant -->
+                <div class="faq-card bg-white p-6 rounded-lg shadow-md">
+                    <div class="flex items-center mb-4">
+                        <div class="w-10 h-10 flex items-center justify-center bg-[#138808] bg-opacity-10 !rounded-full mr-3">
+                            <i class="ri-chat-3-line ri-lg text-[#138808]"></i>
+                        </div>
+                        <h2 class="text-xl font-semibold text-primary">Using the Assistant</h2>
+                    </div>
+                    
+                    <div class="space-y-4">
+                        <div class="faq-item pb-4">
+                            <div class="faq-question flex justify-between items-center cursor-pointer">
+                                <h3 class="font-medium text-gray-800">How do I start a conversation with the assistant?</h3>
+                                <div class="w-6 h-6 flex items-center justify-center text-primary">
+                                    <i class="ri-arrow-down-s-line faq-arrow"></i>
+                                </div>
+                            </div>
+                            <div class="faq-answer mt-2 text-gray-600">
+                                <p>To start a conversation with our Constitutional Rights Assistant:</p>
+                                <ol class="list-decimal pl-5 mt-2">
+                                    <li>Click on the "Start Consultation" button on the homepage</li>
+                                    <li>Select your preferred language from the dropdown menu</li>
+                                    <li>Type your question in the chat box or use the voice input option</li>
+                                    <li>Press enter or click the send button to submit your question</li>
+                                </ol>
+                                <p class="mt-2">You can also click on one of the suggested topics to begin a conversation about common legal issues.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="faq-item pb-4">
+                            <div class="faq-question flex justify-between items-center cursor-pointer">
+                                <h3 class="font-medium text-gray-800">Can I use voice commands instead of typing?</h3>
+                                <div class="w-6 h-6 flex items-center justify-center text-primary">
+                                    <i class="ri-arrow-down-s-line faq-arrow"></i>
+                                </div>
+                            </div>
+                            <div class="faq-answer mt-2 text-gray-600">
+                                <p>Yes, our assistant supports voice input in multiple languages. To use voice commands:</p>
+                                <ol class="list-decimal pl-5 mt-2">
+                                    <li>Click on the microphone icon in the chat interface</li>
+                                    <li>Speak clearly in your preferred language</li>
+                                    <li>The assistant will transcribe your speech and respond accordingly</li>
+                                </ol>
+                                <p class="mt-2">Voice recognition works best in a quiet environment with minimal background noise. You can also receive responses in audio format by enabling the voice output option in settings.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="faq-item pb-4">
+                            <div class="faq-question flex justify-between items-center cursor-pointer">
+                                <h3 class="font-medium text-gray-800">How accurate is the information provided?</h3>
+                                <div class="w-6 h-6 flex items-center justify-center text-primary">
+                                    <i class="ri-arrow-down-s-line faq-arrow"></i>
+                                </div>
+                            </div>
+                            <div class="faq-answer mt-2 text-gray-600">
+                                <p>Our Constitutional Rights Assistant provides information based on the current laws and constitutional provisions of India. The system is regularly updated to reflect changes in legislation and judicial interpretations. However, please note:</p>
+                                <ul class="list-disc pl-5 mt-2">
+                                    <li>The information is for general guidance only and not a substitute for professional legal advice</li>
+                                    <li>Legal interpretations can vary based on specific circumstances of individual cases</li>
+                                    <li>Laws and regulations may change over time</li>
+                                </ul>
+                                <p class="mt-2">For critical legal matters, we recommend consulting with a qualified legal professional who can provide personalized advice based on your specific situation.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="faq-item pb-4">
+                            <div class="faq-question flex justify-between items-center cursor-pointer">
+                                <h3 class="font-medium text-gray-800">Can I save or download my conversation history?</h3>
+                                <div class="w-6 h-6 flex items-center justify-center text-primary">
+                                    <i class="ri-arrow-down-s-line faq-arrow"></i>
+                                </div>
+                            </div>
+                            <div class="faq-answer mt-2 text-gray-600">
+                                <p>Yes, you can save or download your conversation history with the Constitutional Rights Assistant. To do this:</p>
+                                <ol class="list-decimal pl-5 mt-2">
+                                    <li>Click on the settings icon (gear symbol) in the top right corner of the chat interface</li>
+                                    <li>Select "Download Conversation" from the dropdown menu</li>
+                                    <li>Choose your preferred format (PDF or text file)</li>
+                                    <li>The conversation will be saved to your device</li>
+                                </ol>
+                                <p class="mt-2">This feature is useful for keeping records of important legal information or sharing the information with others. Your conversation data is not stored on our servers beyond the current session unless you create an account and enable the history saving feature.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Legal Help -->
+                <div class="faq-card bg-white p-6 rounded-lg shadow-md">
+                    <div class="flex items-center mb-4">
+                        <div class="w-10 h-10 flex items-center justify-center bg-primary bg-opacity-10 !rounded-full mr-3">
+                            <i class="ri-scales-3-line ri-lg text-primary"></i>
+                        </div>
+                        <h2 class="text-xl font-semibold text-primary">Legal Help</h2>
+                    </div>
+                    
+                    <div class="space-y-4">
+                        <div class="faq-item pb-4">
+                            <div class="faq-question flex justify-between items-center cursor-pointer">
+                                <h3 class="font-medium text-gray-800">How can I find a lawyer through this service?</h3>
+                                <div class="w-6 h-6 flex items-center justify-center text-primary">
+                                    <i class="ri-arrow-down-s-line faq-arrow"></i>
+                                </div>
+                            </div>
+                            <div class="faq-answer mt-2 text-gray-600">
+                                <p>While our Constitutional Rights Assistant does not directly connect you with lawyers, it can provide information on how to find legal representation:</p>
+                                <ul class="list-disc pl-5 mt-2">
+                                    <li>Ask the assistant about legal aid services in your area</li>
+                                    <li>Request information about your state's legal services authority</li>
+                                    <li>Get guidance on how to approach district legal services authorities</li>
+                                    <li>Learn about pro bono legal services for economically disadvantaged citizens</li>
+                                </ul>
+                                <p class="mt-2">You can also ask for information about bar associations in your region, which can help you find qualified lawyers specializing in your specific legal issue.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="faq-item pb-4">
+                            <div class="faq-question flex justify-between items-center cursor-pointer">
+                                <h3 class="font-medium text-gray-800">What is legal aid and am I eligible?</h3>
+                                <div class="w-6 h-6 flex items-center justify-center text-primary">
+                                    <i class="ri-arrow-down-s-line faq-arrow"></i>
+                                </div>
+                            </div>
+                            <div class="faq-answer mt-2 text-gray-600">
+                                <p>Legal aid refers to the provision of assistance to people who are unable to afford legal representation and access to the court system. In India, legal aid is a fundamental right under Article 39A of the Constitution.</p>
+                                <p class="mt-2">You may be eligible for free legal aid if you belong to any of these categories:</p>
+                                <ul class="list-disc pl-5 mt-2">
+                                    <li>Members of Scheduled Castes or Scheduled Tribes</li>
+                                    <li>Victims of human trafficking or beggar</li>
+                                    <li>Women and children</li>
+                                    <li>Persons with disabilities</li>
+                                    <li>Victims of mass disaster, ethnic violence, caste atrocity, flood, drought, earthquake, or industrial disaster</li>
+                                    <li>Industrial workmen</li>
+                                    <li>Persons in custody</li>
+                                    <li>Persons with annual income below the specified limit (varies by state)</li>
+                                </ul>
+                                <p class="mt-2">You can contact your State Legal Services Authority or District Legal Services Authority to apply for legal aid.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="faq-item pb-4">
+                            <div class="faq-question flex justify-between items-center cursor-pointer">
+                                <h3 class="font-medium text-gray-800">How do I file a Public Interest Litigation (PIL)?</h3>
+                                <div class="w-6 h-6 flex items-center justify-center text-primary">
+                                    <i class="ri-arrow-down-s-line faq-arrow"></i>
+                                </div>
+                            </div>
+                            <div class="faq-answer mt-2 text-gray-600">
+                                <p>Public Interest Litigation (PIL) is a petition that can be filed by any public-spirited person in the High Court or Supreme Court for the protection of public interest. To file a PIL:</p>
+                                <ol class="list-decimal pl-5 mt-2">
+                                    <li><strong>Identify the issue:</strong> The matter should concern public interest, affecting the rights of a community or class of people, not just an individual grievance</li>
+                                    <li><strong>Research:</strong> Gather all relevant facts, documents, and evidence related to the issue</li>
+                                    <li><strong>Draft the petition:</strong> Prepare a petition clearly stating the facts, legal provisions violated, and the remedy sought</li>
+                                    <li><strong>Filing:</strong> Submit the petition to the appropriate High Court or the Supreme Court along with required affidavits and documents</li>
+                                    <li><strong>Court fees:</strong> Pay the nominal court fee (much lower than regular litigation)</li>
+                                </ol>
+                                <p class="mt-2">PILs can be filed through a simple letter addressed to the Chief Justice of the High Court or Supreme Court in some cases, especially if the petitioner cannot afford formal filing procedures.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="faq-item pb-4">
+                            <div class="faq-question flex justify-between items-center cursor-pointer">
+                                <h3 class="font-medium text-gray-800">What should I do if my rights have been violated?</h3>
+                                <div class="w-6 h-6 flex items-center justify-center text-primary">
+                                    <i class="ri-arrow-down-s-line faq-arrow"></i>
+                                </div>
+                            </div>
+                            <div class="faq-answer mt-2 text-gray-600">
+                                <p>If you believe your constitutional or legal rights have been violated, you can take the following steps:</p>
+                                <ol class="list-decimal pl-5 mt-2">
+                                    <li><strong>Document everything:</strong> Collect and preserve all evidence related to the violation</li>
+                                    <li><strong>File a police complaint:</strong> For criminal violations, file an FIR at the local police station</li>
+                                    <li><strong>Approach relevant authorities:</strong> Contact appropriate government departments or regulatory bodies</li>
+                                    <li><strong>Seek legal counsel:</strong> Consult a lawyer who specializes in the relevant area of law</li>
+                                    <li><strong>File a case:</strong> Depending on the nature of violation, file a case in the appropriate court</li>
+                                    <li><strong>Approach commissions:</strong> Contact specialized commissions like the Human Rights Commission, Women's Commission, SC/ST Commission, etc.</li>
+                                    <li><strong>Writ petition:</strong> File a writ petition in the High Court or Supreme Court for fundamental rights violations</li>
+                                </ol>
+                                <p class="mt-2">Our Constitutional Rights Assistant can provide more specific guidance based on the nature of the rights violation you have experienced.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="py-12 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="max-w-3xl mx-auto text-center">
+                <h2 class="text-2xl md:text-3xl font-bold text-primary mb-4">Still Have Questions?</h2>
+                <p class="text-gray-700 mb-8">Our AI-powered assistant is available 24/7 to help you understand your rights and navigate legal procedures in your preferred language.</p>
+                <a href="https://readdy.ai/home/d1f7711b-cca5-4813-ac9e-56dc8ef41008/0abf9d5e-f0c1-49d0-81f9-12655ebcd390" data-readdy="true" class="bg-primary text-white px-8 py-4 !rounded-button font-medium hover:bg-opacity-90 transition-all whitespace-nowrap inline-block">
+                    Start a Consultation
+                </a>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer class="bg-gray-900 text-white py-10">
+    <div class="container mx-auto px-4">
+        <div class="grid md:grid-cols-4 gap-8">
+            <div>
+                <h3 class="text-lg font-semibold mb-4">Constitutional Rights Assistant</h3>
+                <p class="text-gray-400 text-sm">Empowering citizens with legal knowledge in their preferred language.</p>
+            </div>
+            <div>
+                <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
+                <ul class="space-y-2 text-gray-400">
+                    <li><a href="https://readdy.ai/home/d1f7711b-cca5-4813-ac9e-56dc8ef41008/0abf9d5e-f0c1-49d0-81f9-12655ebcd390" data-readdy="true" class="hover:text-white transition-colors">Home</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">About Us</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Legal Topics</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">FAQ</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Contact</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="text-lg font-semibold mb-4">Legal Resources</h3>
+                <ul class="space-y-2 text-gray-400">
+                    <li><a href="#" class="hover:text-white transition-colors">Indian Constitution</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Supreme Court Judgments</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Legal Aid Services</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Government Schemes</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="text-lg font-semibold mb-4">Contact Us</h3>
+                <ul class="space-y-2 text-gray-400">
+                    <li class="flex items-center gap-2">
+                        <i class="ri-mail-line"></i>
+                        <span>support@legalhelp.org</span>
+                    </li>
+                    <li class="flex items-center gap-2">
+                        <i class="ri-phone-line"></i>
+                        <span>+91 1800-123-4567</span>
+                    </li>
+                    <li class="flex items-center gap-2">
+                        <i class="ri-map-pin-line"></i>
+                        <span>New Delhi, India</span>
+                    </li>
+                </ul>
+                <div class="flex gap-4 mt-4">
+                    <a href="#" class="w-8 h-8 flex items-center justify-center bg-gray-800 !rounded-full hover:bg-primary transition-all">
+                        <i class="ri-facebook-fill text-white"></i>
+                    </a>
+                    <a href="#" class="w-8 h-8 flex items-center justify-center bg-gray-800 !rounded-full hover:bg-primary transition-all">
+                        <i class="ri-twitter-x-fill text-white"></i>
+                    </a>
+                    <a href="#" class="w-8 h-8 flex items-center justify-center bg-gray-800 !rounded-full hover:bg-primary transition-all">
+                        <i class="ri-instagram-line text-white"></i>
+                    </a>
+                    <a href="#" class="w-8 h-8 flex items-center justify-center bg-gray-800 !rounded-full hover:bg-primary transition-all">
+                        <i class="ri-youtube-fill text-white"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-500 text-sm">
+            <p>© 2025 Constitutional Rights Assistant. All rights reserved.</p>
+            <p class="mt-2">This service provides general legal information and is not a substitute for professional legal advice.</p>
+        </div>
+    </div>
+</footer>
+
+<button id="backToTop" class="back-to-top fixed bottom-6 right-6 w-12 h-12 flex items-center justify-center bg-primary !rounded-full text-white shadow-lg">
+    <i class="ri-arrow-up-line ri-lg"></i>
+</button>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // FAQ accordion functionality
+    const faqQuestions = document.querySelectorAll('.faq-question');
+    
+    faqQuestions.forEach(question => {
+        question.addEventListener('click', function() {
+            const answer = this.nextElementSibling;
+            const arrow = this.querySelector('.faq-arrow');
+            
+            if (answer.classList.contains('active')) {
+                answer.classList.remove('active');
+                arrow.classList.remove('ri-arrow-up-s-line');
+                arrow.classList.add('ri-arrow-down-s-line');
+            } else {
+                answer.classList.add('active');
+                arrow.classList.remove('ri-arrow-down-s-line');
+                arrow.classList.add('ri-arrow-up-s-line');
+            }
+        });
+    });
+    
+    // Search functionality
+    const searchInput = document.getElementById('searchFaq');
+    
+    searchInput.addEventListener('input', function() {
+        const searchTerm = this.value.toLowerCase();
+        const allQuestions = document.querySelectorAll('.faq-question h3');
+        
+        allQuestions.forEach(question => {
+            const questionText = question.textContent.toLowerCase();
+            const faqItem = question.closest('.faq-item');
+            
+            if (questionText.includes(searchTerm)) {
+                faqItem.style.display = 'block';
+            } else {
+                faqItem.style.display = 'none';
+            }
+        });
+    });
+    
+    // Back to top button
+    const backToTopButton = document.getElementById('backToTop');
+    
+    window.addEventListener('scroll', function() {
+        if (window.pageYOffset > 300) {
+            backToTopButton.classList.add('visible');
+        } else {
+            backToTopButton.classList.remove('visible');
+        }
+    });
+    
+    backToTopButton.addEventListener('click', function() {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+    
+    // Mobile menu
+    const menuButton = document.querySelector('.ri-menu-line').parentElement;
+    const navLinks = document.querySelector('.md\\:flex.items-center.space-x-6');
+    
+    menuButton.addEventListener('click', function() {
+        if (navLinks.classList.contains('hidden')) {
+            navLinks.classList.remove('hidden');
+            navLinks.classList.add('flex', 'flex-col', 'absolute', 'top-16', 'right-4', 'bg-white', 'shadow-md', 'p-4', 'rounded', 'space-y-4', 'space-x-0', 'z-50');
+        } else {
+            navLinks.classList.add('hidden');
+            navLinks.classList.remove('flex', 'flex-col', 'absolute', 'top-16', 'right-4', 'bg-white', 'shadow-md', 'p-4', 'rounded', 'space-y-4', 'space-x-0', 'z-50');
+        }
+    });
+});
+</script>
+</body>
+</html>

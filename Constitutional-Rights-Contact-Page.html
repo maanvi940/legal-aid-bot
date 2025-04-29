@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact - Constitutional Rights Assistant</title>
+<script src="https://cdn.tailwindcss.com/3.4.16"></script>
+<script>tailwind.config={theme:{extend:{colors:{primary:'#000080',secondary:'#FF9933'},borderRadius:{'none':'0px','sm':'4px',DEFAULT:'8px','md':'12px','lg':'16px','xl':'20px','2xl':'24px','3xl':'32px','full':'9999px','button':'8px'}}}}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css" rel="stylesheet">
+<style>
+:where([class^="ri-"])::before { content: "\f3c2"; }
+body {
+  font-family: 'Lora', serif;
+  background-color: #FDF5E6;
+}
+.contact-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.contact-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 128, 0.1), 0 10px 10px -5px rgba(0, 0, 128, 0.04);
+}
+.form-input, .form-textarea, .form-select {
+  border: 1px solid rgba(0, 0, 128, 0.2);
+  background-color: rgba(255, 255, 255, 0.8);
+}
+.form-input:focus, .form-textarea:focus, .form-select:focus {
+  border-color: #000080;
+  box-shadow: 0 0 0 3px rgba(0, 0, 128, 0.1);
+  outline: none;
+}
+.faq-item {
+  transition: all 0.3s ease;
+}
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+.faq-item.active .faq-answer {
+  max-height: 500px;
+}
+.faq-item.active .faq-icon {
+  transform: rotate(180deg);
+}
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+</style>
+</head>
+<body>
+<header class="bg-white shadow-md">
+  <div class="container mx-auto px-4 py-3">
+    <div class="flex items-center justify-between">
+      <div class="flex items-center space-x-4">
+        <div class="w-10 h-10 flex items-center justify-center">
+          <img src="https://readdy.ai/api/search-image?query=scales%252520of%252520justice%252520in%252520a%252520shield%25252C%252520navy%252520blue%252520color%25252C%252520simple%252520logo%25252C%252520professional%25252C%252520clean%252520lines%25252C%252520minimalist%252520design&width=80&height=80&seq=123&orientation=squarish" alt="Legal Assistant Logo" class="h-10">
+        </div>
+        <h1 class="text-primary text-xl font-semibold">Constitutional Rights Assistant</h1>
+      </div>
+      <div class="hidden md:flex items-center space-x-6">
+        <a href="https://readdy.ai/home/d1f7711b-cca5-4813-ac9e-56dc8ef41008/0abf9d5e-f0c1-49d0-81f9-12655ebcd390" data-readdy="true" class="text-gray-800 hover:text-primary transition-colors">Home</a>
+        <a href="https://readdy.ai/home/d1f7711b-cca5-4813-ac9e-56dc8ef41008/0c2bec80-390b-4489-9a6f-725848879716" data-readdy="true" class="text-gray-800 hover:text-primary transition-colors">FAQ</a>
+        <a href="https://readdy.ai/home/d1f7711b-cca5-4813-ac9e-56dc8ef41008/47428622-e6bc-4ed3-bfe6-b1c765aed102" data-readdy="true" class="text-gray-800 hover:text-primary transition-colors">Legal Topics</a>
+        <a href="#" class="text-primary font-medium transition-colors border-b-2 border-primary">Contact</a>
+      </div>
+      <div class="md:hidden">
+        <button id="mobileMenuBtn" class="w-10 h-10 flex items-center justify-center text-primary">
+          <i class="ri-menu-line ri-lg"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div id="mobileMenu" class="hidden md:hidden absolute top-16 right-4 bg-white shadow-md p-4 rounded z-50 w-48">
+    <div class="flex flex-col space-y-4">
+      <a href="https://readdy.ai/home/d1f7711b-cca5-4813-ac9e-56dc8ef41008/0abf9d5e-f0c1-49d0-81f9-12655ebcd390" data-readdy="true" class="text-gray-800 hover:text-primary transition-colors">Home</a>
+      <a href="https://readdy.ai/home/d1f7711b-cca5-4813-ac9e-56dc8ef41008/0c2bec80-390b-4489-9a6f-725848879716" data-readdy="true" class="text-gray-800 hover:text-primary transition-colors">FAQ</a>
+      <a href="https://readdy.ai/home/d1f7711b-cca5-4813-ac9e-56dc8ef41008/47428622-e6bc-4ed3-bfe6-b1c765aed102" data-readdy="true" class="text-gray-800 hover:text-primary transition-colors">Legal Topics</a>
+      <a href="#" class="text-primary font-medium transition-colors">Contact</a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="bg-primary bg-opacity-5 py-6">
+    <div class="container mx-auto px-4">
+      <nav class="flex" aria-label="Breadcrumb">
+        <ol class="inline-flex items-center space-x-1 md:space-x-3">
+          <li class="inline-flex items-center">
+            <a href="https://readdy.ai/home/d1f7711b-cca5-4813-ac9e-56dc8ef41008/0abf9d5e-f0c1-49d0-81f9-12655ebcd390" data-readdy="true" class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-primary">
+              <span class="w-4 h-4 flex items-center justify-center mr-2">
+                <i class="ri-home-4-line"></i>
+              </span>
+              Home
+            </a>
+          </li>
+          <li>
+            <div class="flex items-center">
+              <span class="w-4 h-4 flex items-center justify-center text-gray-400 mx-1">
+                <i class="ri-arrow-right-s-line"></i>
+              </span>
+              <span class="text-sm font-medium text-primary">Contact Us</span>
+            </div>
+          </li>
+        </ol>
+      </nav>
+      <h1 class="text-3xl font-bold text-primary mt-2">Contact Us</h1>
+      <p class="text-gray-600 mt-1">Get in touch with our team for any questions or assistance</p>
+    </div>
+  </div>
+
+  <section class="py-12">
+    <div class="container mx-auto px-4">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div class="lg:col-span-2">
+          <div class="bg-white shadow-sm rounded-lg p-6 md:p-8">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-6">Send Us a Message</h2>
+            <form id="contactForm">
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                <div>
+                  <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Full Name <span class="text-red-500">*</span></label>
+                  <input type="text" id="name" name="name" class="form-input w-full px-4 py-2 rounded" required>
+                  <p class="error-message text-red-500 text-sm mt-1 hidden">Please enter your name</p>
+                </div>
+                <div>
+                  <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email Address <span class="text-red-500">*</span></label>
+                  <input type="email" id="email" name="email" class="form-input w-full px-4 py-2 rounded" required>
+                  <p class="error-message text-red-500 text-sm mt-1 hidden">Please enter a valid email address</p>
+                </div>
+              </div>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                <div>
+                  <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
+                  <input type="tel" id="phone" name="phone" class="form-input w-full px-4 py-2 rounded">
+                </div>
+                <div>
+                  <label for="subject" class="block text-sm font-medium text-gray-700 mb-1">Subject <span class="text-red-500">*</span></label>
+                  <select id="subject" name="subject" class="form-select w-full px-4 py-2 rounded pr-8" required>
+                    <option value="">Select a subject</option>
+                    <option value="general">General Inquiry</option>
+                    <option value="support">Legal Support</option>
+                    <option value="feedback">Feedback</option>
+                    <option value="partnership">Partnership</option>
+                    <option value="other">Other</option>
+                  </select>
+                  <p class="error-message text-red-500 text-sm mt-1 hidden">Please select a subject</p>
+                </div>
+              </div>
+              <div class="mb-6">
+                <label for="message" class="block text-sm font-medium text-gray-700 mb-1">Message <span class="text-red-500">*</span></label>
+                <textarea id="message" name="message" rows="5" class="form-textarea w-full px-4 py-2 rounded" required></textarea>
+                <p class="error-message text-red-500 text-sm mt-1 hidden">Please enter your message</p>
+              </div>
+              <div class="flex items-start mb-6">
+                <div class="flex items-center h-5">
+                  <input id="privacy" type="checkbox" class="form-checkbox h-4 w-4 text-primary rounded border-gray-300 focus:ring-primary" required>
+                </div>
+                <label for="privacy" class="ml-2 text-sm text-gray-600">
+                  I agree to the <a href="#" class="text-primary hover:underline">Privacy Policy</a> and consent to the processing of my personal data.
+                </label>
+              </div>
+              <div>
+                <button type="submit" id="submitBtn" class="bg-primary text-white px-6 py-3 !rounded-button font-medium hover:bg-opacity-90 transition-all whitespace-nowrap">
+                  Send Message
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+        
+        <div>
+          <div class="grid grid-cols-1 gap-6">
+            <div class="contact-card bg-white shadow-sm rounded-lg p-6">
+              <div class="w-12 h-12 flex items-center justify-center bg-primary bg-opacity-10 !rounded-full text-primary mb-4">
+                <i class="ri-map-pin-line ri-lg"></i>
+              </div>
+              <h3 class="text-lg font-semibold text-gray-800 mb-2">Our Location</h3>
+              <p class="text-gray-600">
+                Constitutional Rights Assistant<br>
+                123 Legal Avenue, Connaught Place<br>
+                New Delhi, 110001<br>
+                India
+              </p>
+            </div>
+            
+            <div class="contact-card bg-white shadow-sm rounded-lg p-6">
+              <div class="w-12 h-12 flex items-center justify-center bg-[#FF9933] bg-opacity-10 !rounded-full text-[#FF9933] mb-4">
+                <i class="ri-mail-line ri-lg"></i>
+              </div>
+              <h3 class="text-lg font-semibold text-gray-800 mb-2">Email Us</h3>
+              <p class="text-gray-600 mb-2">
+                <span class="font-medium">General Inquiries:</span><br>
+                info@constitutionalrights.org
+              </p>
+              <p class="text-gray-600 mb-2">
+                <span class="font-medium">Support:</span><br>
+                support@constitutionalrights.org
+              </p>
+              <p class="text-gray-600">
+                <span class="font-medium">Partnerships:</span><br>
+                partners@constitutionalrights.org
+              </p>
+            </div>
+            
+            <div class="contact-card bg-white shadow-sm rounded-lg p-6">
+              <div class="w-12 h-12 flex items-center justify-center bg-[#138808] bg-opacity-10 !rounded-full text-[#138808] mb-4">
+                <i class="ri-phone-line ri-lg"></i>
+              </div>
+              <h3 class="text-lg font-semibold text-gray-800 mb-2">Call Us</h3>
+              <p class="text-gray-600 mb-2">
+                <span class="font-medium">Toll-Free Helpline:</span><br>
+                1800-123-4567
+              </p>
+              <p class="text-gray-600 mb-2">
+                <span class="font-medium">Office:</span><br>
+                +91 11 2345 6789
+              </p>
+              <p class="text-gray-600">
+                <span class="font-medium">Emergency Legal Aid:</span><br>
+                +91 98765 43210
+              </p>
+            </div>
+            
+            <div class="contact-card bg-white shadow-sm rounded-lg p-6">
+              <div class="w-12 h-12 flex items-center justify-center bg-primary bg-opacity-10 !rounded-full text-primary mb-4">
+                <i class="ri-time-line ri-lg"></i>
+              </div>
+              <h3 class="text-lg font-semibold text-gray-800 mb-2">Operating Hours</h3>
+              <div class="grid grid-cols-2 gap-2">
+                <div class="text-gray-600">Monday - Friday:</div>
+                <div class="text-gray-800 font-medium">9:00 AM - 6:00 PM</div>
+                
+                <div class="text-gray-600">Saturday:</div>
+                <div class="text-gray-800 font-medium">10:00 AM - 4:00 PM</div>
+                
+                <div class="text-gray-600">Sunday:</div>
+                <div class="text-gray-800 font-medium">Closed</div>
+                
+                <div class="text-gray-600">Holidays:</div>
+                <div class="text-gray-800 font-medium">Closed</div>
+              </div>
+              <p class="text-sm text-gray-500 mt-3">
+                * Helpline is available 24/7 for emergency legal assistance
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-12 bg-white">
+    <div class="container mx-auto px-4">
+      <h2 class="text-2xl font-semibold text-gray-800 mb-8 text-center">Our Location</h2>
+      <div class="bg-gray-100 rounded-lg overflow-hidden shadow-md mb-6" style="height: 400px; background-image: url('https://public.readdy.ai/gen_page/map_placeholder_1280x720.png'); background-position: center; background-size: cover;"></div>
+      <div class="text-center">
+        <h3 class="text-lg font-medium text-gray-800 mb-2">Constitutional Rights Assistant</h3>
+        <p class="text-gray-600">123 Legal Avenue, Connaught Place, New Delhi, 110001, India</p>
+        <a href="https://maps.google.com" target="_blank" class="inline-flex items-center text-primary hover:underline mt-3">
+          <span>Get Directions</span>
+          <span class="w-4 h-4 flex items-center justify-center ml-1">
+            <i class="ri-external-link-line"></i>
+          </span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-12 bg-primary bg-opacity-5">
+    <div class="container mx-auto px-4">
+      <h2 class="text-2xl font-semibold text-gray-800 mb-2 text-center">Frequently Asked Questions</h2>
+      <p class="text-gray-600 text-center mb-8">Find quick answers to common questions about contacting us</p>
+      
+      <div class="max-w-3xl mx-auto">
+        <div class="space-y-4">
+          <div class="faq-item bg-white rounded-lg shadow-sm overflow-hidden">
+            <button class="faq-toggle w-full flex items-center justify-between p-5 text-left">
+              <h3 class="text-lg font-medium text-gray-800">How quickly will I receive a response to my inquiry?</h3>
+              <span class="faq-icon w-6 h-6 flex items-center justify-center text-primary transition-transform duration-300">
+                <i class="ri-arrow-down-s-line"></i>
+              </span>
+            </button>
+            <div class="faq-answer px-5 pb-5">
+              <p class="text-gray-600">We strive to respond to all inquiries within 24-48 business hours. For urgent matters, please call our helpline at 1800-123-4567, which is available 24/7. Complex legal inquiries may require additional time for our team to provide a comprehensive response.</p>
+            </div>
+          </div>
+          
+          <div class="faq-item bg-white rounded-lg shadow-sm overflow-hidden">
+            <button class="faq-toggle w-full flex items-center justify-between p-5 text-left">
+              <h3 class="text-lg font-medium text-gray-800">Who should I contact for emergency legal assistance?</h3>
+              <span class="faq-icon w-6 h-6 flex items-center justify-center text-primary transition-transform duration-300">
+                <i class="ri-arrow-down-s-line"></i>
+              </span>
+            </button>
+            <div class="faq-answer px-5 pb-5">
+              <p class="text-gray-600">For emergency legal assistance, please call our dedicated Emergency Legal Aid number at +91 98765 43210, which is available 24/7. Our team of legal experts is ready to provide immediate guidance for urgent situations requiring prompt legal intervention.</p>
+            </div>
+          </div>
+          
+          <div class="faq-item bg-white rounded-lg shadow-sm overflow-hidden">
+            <button class="faq-toggle w-full flex items-center justify-between p-5 text-left">
+              <h3 class="text-lg font-medium text-gray-800">How can I submit legal documents for review?</h3>
+              <span class="faq-icon w-6 h-6 flex items-center justify-center text-primary transition-transform duration-300">
+                <i class="ri-arrow-down-s-line"></i>
+              </span>
+            </button>
+            <div class="faq-answer px-5 pb-5">
+              <p class="text-gray-600">You can submit legal documents for review by emailing them to support@constitutionalrights.org with the subject line "Document Review Request." Please ensure all documents are in PDF format and include your contact information. For sensitive documents, we recommend using our secure document upload portal available on request.</p>
+            </div>
+          </div>
+          
+          <div class="faq-item bg-white rounded-lg shadow-sm overflow-hidden">
+            <button class="faq-toggle w-full flex items-center justify-between p-5 text-left">
+              <h3 class="text-lg font-medium text-gray-800">Do I need an appointment to visit your office?</h3>
+              <span class="faq-icon w-6 h-6 flex items-center justify-center text-primary transition-transform duration-300">
+                <i class="ri-arrow-down-s-line"></i>
+              </span>
+            </button>
+            <div class="faq-answer px-5 pb-5">
+              <p class="text-gray-600">Yes, we recommend scheduling an appointment before visiting our office to ensure that the appropriate legal expert is available to assist you. You can schedule an appointment by calling our office at +91 11 2345 6789 or by using our online appointment scheduling system. Walk-ins are accommodated based on availability.</p>
+            </div>
+          </div>
+          
+          <div class="faq-item bg-white rounded-lg shadow-sm overflow-hidden">
+            <button class="faq-toggle w-full flex items-center justify-between p-5 text-left">
+              <h3 class="text-lg font-medium text-gray-800">Is there a fee for initial consultations?</h3>
+              <span class="faq-icon w-6 h-6 flex items-center justify-center text-primary transition-transform duration-300">
+                <i class="ri-arrow-down-s-line"></i>
+              </span>
+            </button>
+            <div class="faq-answer px-5 pb-5">
+              <p class="text-gray-600">We offer a free 30-minute initial consultation for all new clients. During this consultation, we assess your legal needs and provide general guidance. For detailed legal advice or representation, our fee structure will be clearly explained before any commitment. We also offer pro bono services for eligible individuals based on financial need.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="bg-gray-900 text-white py-10">
+  <div class="container mx-auto px-4">
+    <div class="grid md:grid-cols-4 gap-8">
+      <div>
+        <h3 class="text-lg font-semibold mb-4">Constitutional Rights Assistant</h3>
+        <p class="text-gray-400 text-sm">Empowering citizens with legal knowledge in their preferred language.</p>
+      </div>
+      <div>
+        <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
+        <ul class="space-y-2 text-gray-400">
+          <li><a href="https://readdy.ai/home/d1f7711b-cca5-4813-ac9e-56dc8ef41008/0abf9d5e-f0c1-49d0-81f9-12655ebcd390" data-readdy="true" class="hover:text-white transition-colors">Home</a></li>
+          <li><a href="#" class="hover:text-white transition-colors">About Us</a></li>
+          <li><a href="https://readdy.ai/home/d1f7711b-cca5-4813-ac9e-56dc8ef41008/47428622-e6bc-4ed3-bfe6-b1c765aed102" data-readdy="true" class="hover:text-white transition-colors">Legal Topics</a></li>
+          <li><a href="https://readdy.ai/home/d1f7711b-cca5-4813-ac9e-56dc8ef41008/0c2bec80-390b-4489-9a6f-725848879716" data-readdy="true" class="hover:text-white transition-colors">FAQ</a></li>
+          <li><a href="#" class="hover:text-white transition-colors">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="text-lg font-semibold mb-4">Legal Resources</h3>
+        <ul class="space-y-2 text-gray-400">
+          <li><a href="#" class="hover:text-white transition-colors">Indian Constitution</a></li>
+          <li><a href="#" class="hover:text-white transition-colors">Supreme Court Judgments</a></li>
+          <li><a href="#" class="hover:text-white transition-colors">Legal Aid Services</a></li>
+          <li><a href="#" class="hover:text-white transition-colors">Government Schemes</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="text-lg font-semibold mb-4">Contact Us</h3>
+        <ul class="space-y-2 text-gray-400">
+          <li class="flex items-center gap-2">
+            <i class="ri-mail-line"></i>
+            <span>support@constitutionalrights.org</span>
+          </li>
+          <li class="flex items-center gap-2">
+            <i class="ri-phone-line"></i>
+            <span>+91 1800-123-4567</span>
+          </li>
+          <li class="flex items-center gap-2">
+            <i class="ri-map-pin-line"></i>
+            <span>New Delhi, India</span>
+          </li>
+        </ul>
+        <div class="flex gap-4 mt-4">
+          <a href="#" class="w-8 h-8 flex items-center justify-center bg-gray-800 !rounded-full hover:bg-primary transition-all">
+            <i class="ri-facebook-fill text-white"></i>
+          </a>
+          <a href="#" class="w-8 h-8 flex items-center justify-center bg-gray-800 !rounded-full hover:bg-primary transition-all">
+            <i class="ri-twitter-x-fill text-white"></i>
+          </a>
+          <a href="#" class="w-8 h-8 flex items-center justify-center bg-gray-800 !rounded-full hover:bg-primary transition-all">
+            <i class="ri-instagram-line text-white"></i>
+          </a>
+          <a href="#" class="w-8 h-8 flex items-center justify-center bg-gray-800 !rounded-full hover:bg-primary transition-all">
+            <i class="ri-youtube-fill text-white"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-500 text-sm">
+      <p>© 2025 Constitutional Rights Assistant. All rights reserved.</p>
+      <p class="mt-2">This service provides general legal information and is not a substitute for professional legal advice.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Mobile menu toggle
+  const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+  const mobileMenu = document.getElementById('mobileMenu');
+  mobileMenuBtn.addEventListener('click', function() {
+    mobileMenu.classList.toggle('hidden');
+  });
+
+  // Form validation
+  const contactForm = document.getElementById('contactForm');
+  const submitBtn = document.getElementById('submitBtn');
+  
+  contactForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    let isValid = true;
+    const errorMessages = document.querySelectorAll('.error-message');
+    errorMessages.forEach(msg => msg.classList.add('hidden'));
+    
+    const name = document.getElementById('name');
+    const email = document.getElementById('email');
+    const subject = document.getElementById('subject');
+    const message = document.getElementById('message');
+    
+    if (!name.value.trim()) {
+      showError(name, 'Please enter your name');
+      isValid = false;
+    }
+    
+    if (!email.value.trim()) {
+      showError(email, 'Please enter your email address');
+      isValid = false;
+    } else if (!isValidEmail(email.value)) {
+      showError(email, 'Please enter a valid email address');
+      isValid = false;
+    }
+    
+    if (!subject.value) {
+      showError(subject, 'Please select a subject');
+      isValid = false;
+    }
+    
+    if (!message.value.trim()) {
+      showError(message, 'Please enter your message');
+      isValid = false;
+    }
+    
+    if (isValid) {
+      submitBtn.innerHTML = '<span class="w-5 h-5 flex items-center justify-center animate-spin mr-2"><i class="ri-loader-4-line"></i></span> Sending...';
+      submitBtn.disabled = true;
+      
+      // Simulate form submission
+      setTimeout(() => {
+        contactForm.reset();
+        submitBtn.innerHTML = '<span class="w-5 h-5 flex items-center justify-center mr-2"><i class="ri-check-line"></i></span> Message Sent';
+        
+        setTimeout(() => {
+          submitBtn.innerHTML = 'Send Message';
+          submitBtn.disabled = false;
+        }, 3000);
+      }, 1500);
+    }
+  });
+  
+  function showError(input, message) {
+    const errorElement = input.nextElementSibling;
+    errorElement.textContent = message;
+    errorElement.classList.remove('hidden');
+  }
+  
+  function isValidEmail(email) {
+    const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
+  }
+  
+  // FAQ accordion
+  const faqToggles = document.querySelectorAll('.faq-toggle');
+  faqToggles.forEach(toggle => {
+    toggle.addEventListener('click', function() {
+      const faqItem = this.parentElement;
+      faqItem.classList.toggle('active');
+    });
+  });
+  
+  // Form input styling
+  const formInputs = document.querySelectorAll('.form-input, .form-textarea, .form-select');
+  formInputs.forEach(input => {
+    input.addEventListener('focus', function() {
+      this.classList.add('ring-2', 'ring-primary', 'ring-opacity-20', 'border-primary');
+    });
+    
+    input.addEventListener('blur', function() {
+      this.classList.remove('ring-2', 'ring-primary', 'ring-opacity-20', 'border-primary');
+    });
+  });
+});
+</script>
+</body>
+</html>

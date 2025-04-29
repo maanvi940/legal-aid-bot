@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Legal Topics - Constitutional Rights Assistant</title>
+<script src="https://cdn.tailwindcss.com/3.4.16"></script>
+<script>tailwind.config={theme:{extend:{colors:{primary:'#000080',secondary:'#FF9933'},borderRadius:{'none':'0px','sm':'4px',DEFAULT:'8px','md':'12px','lg':'16px','xl':'20px','2xl':'24px','3xl':'32px','full':'9999px','button':'8px'}}}}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css" rel="stylesheet">
+<style>
+:where([class^="ri-"])::before { content: "\f3c2"; }
+body {
+    font-family: 'Lora', serif;
+    background-color: #FDF5E6;
+}
+.topic-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.topic-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 128, 0.1), 0 10px 10px -5px rgba(0, 0, 128, 0.04);
+}
+.category-icon {
+    transition: transform 0.3s ease;
+}
+.topic-card:hover .category-icon {
+    transform: scale(1.1);
+}
+.alphabet-index {
+    max-height: 600px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+}
+.alphabet-index::-webkit-scrollbar {
+    width: 4px;
+}
+.alphabet-index::-webkit-scrollbar-track {
+    background: rgba(0, 0, 128, 0.05);
+}
+.alphabet-index::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 128, 0.2);
+    border-radius: 4px;
+}
+.topic-list {
+    max-height: 600px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+}
+.topic-list::-webkit-scrollbar {
+    width: 6px;
+}
+.topic-list::-webkit-scrollbar-track {
+    background: rgba(0, 0, 128, 0.05);
+}
+.topic-list::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 128, 0.2);
+    border-radius: 4px;
+}
+.popular-topics-scroll {
+    scrollbar-width: thin;
+}
+.popular-topics-scroll::-webkit-scrollbar {
+    height: 4px;
+}
+.popular-topics-scroll::-webkit-scrollbar-track {
+    background: rgba(0, 0, 128, 0.05);
+}
+.popular-topics-scroll::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 128, 0.2);
+    border-radius: 4px;
+}
+.search-input {
+    background-color: rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(0, 0, 128, 0.2);
+}
+.search-input:focus {
+    border-color: #000080;
+    box-shadow: 0 0 0 3px rgba(0, 0, 128, 0.1);
+}
+.filter-dropdown {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+}
+.filter-dropdown.show {
+    max-height: 500px;
+}
+</style>
+</head>
+<body>
+<header class="bg-white shadow-md">
+<div class="container mx-auto px-4 py-3">
+<div class="flex items-center justify-between">
+<div class="flex items-center space-x-4">
+<div class="w-10 h-10 flex items-center justify-center">
+<img src="https://readdy.ai/api/search-image?query=scales%2520of%2520justice%2520in%2520a%2520shield%252C%2520navy%2520blue%2520color%252C%2520simple%2520logo%252C%2520professional%252C%2520clean%2520lines%252C%2520minimalist%2520design&width=80&height=80&seq=123&orientation=squarish" alt="Legal Assistant Logo" class="h-10">
+</div>
+<h1 class="text-primary text-xl font-semibold">Constitutional Rights Assistant</h1>
+</div>
+<div class="hidden md:flex items-center space-x-6">
+<a href="https://readdy.ai/home/d1f7711b-cca5-4813-ac9e-56dc8ef41008/0abf9d5e-f0c1-49d0-81f9-12655ebcd390" data-readdy="true" class="text-gray-800 hover:text-primary transition-colors">Home</a>
+<a href="https://readdy.ai/home/d1f7711b-cca5-4813-ac9e-56dc8ef41008/0c2bec80-390b-4489-9a6f-725848879716" data-readdy="true" class="text-gray-800 hover:text-primary transition-colors">FAQ</a>
+<a href="#" class="text-primary font-medium transition-colors border-b-2 border-primary">Legal Topics</a>
+<a href="#" class="text-gray-800 hover:text-primary transition-colors">Contact</a>
+</div>
+<div class="md:hidden">
+<button id="mobileMenuBtn" class="w-10 h-10 flex items-center justify-center text-primary">
+<i class="ri-menu-line ri-lg"></i>
+</button>
+</div>
+</div>
+</div>
+<div id="mobileMenu" class="hidden md:hidden absolute top-16 right-4 bg-white shadow-md p-4 rounded z-50 w-48">
+<div class="flex flex-col space-y-4">
+<a href="https://readdy.ai/home/d1f7711b-cca5-4813-ac9e-56dc8ef41008/0abf9d5e-f0c1-49d0-81f9-12655ebcd390" data-readdy="true" class="text-gray-800 hover:text-primary transition-colors">Home</a>
+<a href="https://readdy.ai/home/d1f7711b-cca5-4813-ac9e-56dc8ef41008/0c2bec80-390b-4489-9a6f-725848879716" data-readdy="true" class="text-gray-800 hover:text-primary transition-colors">FAQ</a>
+<a href="#" class="text-primary font-medium transition-colors">Legal Topics</a>
+<a href="#" class="text-gray-800 hover:text-primary transition-colors">Contact</a>
+</div>
+</div>
+</header>
+
+<main>
+<div class="bg-primary bg-opacity-5 py-6">
+<div class="container mx-auto px-4">
+<div class="flex flex-col md:flex-row items-center justify-between gap-4">
+<div>
+<nav class="flex" aria-label="Breadcrumb">
+<ol class="inline-flex items-center space-x-1 md:space-x-3">
+<li class="inline-flex items-center">
+<a href="https://readdy.ai/home/d1f7711b-cca5-4813-ac9e-56dc8ef41008/0abf9d5e-f0c1-49d0-81f9-12655ebcd390" data-readdy="true" class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-primary">
+<span class="w-4 h-4 flex items-center justify-center mr-2">
+<i class="ri-home-4-line"></i>
+</span>
+Home
+</a>
+</li>
+<li>
+<div class="flex items-center">
+<span class="w-4 h-4 flex items-center justify-center text-gray-400 mx-1">
+<i class="ri-arrow-right-s-line"></i>
+</span>
+<span class="text-sm font-medium text-primary">Legal Topics</span>
+</div>
+</li>
+</ol>
+</nav>
+<h1 class="text-3xl font-bold text-primary mt-2">Legal Topics</h1>
+<p class="text-gray-600 mt-1">Browse through our comprehensive collection of legal information</p>
+</div>
+<div class="flex items-center gap-4">
+<button id="viewToggleGrid" class="w-10 h-10 flex items-center justify-center bg-primary text-white !rounded-button">
+<i class="ri-grid-fill"></i>
+</button>
+<button id="viewToggleList" class="w-10 h-10 flex items-center justify-center bg-white border border-gray-200 text-gray-600 !rounded-button">
+<i class="ri-list-check"></i>
+</button>
+</div>
+</div>
+</div>
+</div>
+
+<section class="py-6">
+<div class="container mx-auto px-4">
+<div class="relative mb-8">
+<div class="flex flex-col md:flex-row gap-4">
+<div class="flex-1 relative">
+<input type="text" id="searchInput" class="search-input w-full py-3 px-4 pl-12 !rounded-button focus:outline-none" placeholder="Search legal topics...">
+<div class="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 flex items-center justify-center text-gray-500">
+<i class="ri-search-line"></i>
+</div>
+</div>
+<button id="filterToggleBtn" class="bg-white border border-gray-200 px-4 py-2 !rounded-button flex items-center justify-center gap-2 whitespace-nowrap hover:bg-gray-50">
+<span class="w-5 h-5 flex items-center justify-center">
+<i class="ri-filter-3-line"></i>
+</span>
+Filter Options
+</button>
+<button class="bg-primary text-white px-4 py-2 !rounded-button flex items-center justify-center gap-2 whitespace-nowrap hover:bg-opacity-90">
+<span class="w-5 h-5 flex items-center justify-center">
+<i class="ri-search-line"></i>
+</span>
+Search
+</button>
+</div>
+<div id="filterDropdown" class="filter-dropdown bg-white border border-gray-200 !rounded mt-2 p-4 shadow-md">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div>
+<h3 class="font-medium text-gray-800 mb-2">Categories</h3>
+<div class="space-y-2">
+<label class="flex items-center gap-2 cursor-pointer">
+<input type="checkbox" class="form-checkbox h-4 w-4 text-primary rounded border-gray-300 focus:ring-primary">
+<span class="text-gray-700">Constitutional Law</span>
+</label>
+<label class="flex items-center gap-2 cursor-pointer">
+<input type="checkbox" class="form-checkbox h-4 w-4 text-primary rounded border-gray-300 focus:ring-primary">
+<span class="text-gray-700">Criminal Law</span>
+</label>
+<label class="flex items-center gap-2 cursor-pointer">
+<input type="checkbox" class="form-checkbox h-4 w-4 text-primary rounded border-gray-300 focus:ring-primary">
+<span class="text-gray-700">Civil Law</span>
+</label>
+<label class="flex items-center gap-2 cursor-pointer">
+<input type="checkbox" class="form-checkbox h-4 w-4 text-primary rounded border-gray-300 focus:ring-primary">
+<span class="text-gray-700">Family Law</span>
+</label>
+<label class="flex items-center gap-2 cursor-pointer">
+<input type="checkbox" class="form-checkbox h-4 w-4 text-primary rounded border-gray-300 focus:ring-primary">
+<span class="text-gray-700">Property Law</span>
+</label>
+</div>
+</div>
+<div>
+<h3 class="font-medium text-gray-800 mb-2">Language</h3>
+<div class="space-y-2">
+<label class="flex items-center gap-2 cursor-pointer">
+<input type="checkbox" checked class="form-checkbox h-4 w-4 text-primary rounded border-gray-300 focus:ring-primary">
+<span class="text-gray-700">English</span>
+</label>
+<label class="flex items-center gap-2 cursor-pointer">
+<input type="checkbox" class="form-checkbox h-4 w-4 text-primary rounded border-gray-300 focus:ring-primary">
+<span class="text-gray-700">Hindi</span>
+</label>
+<label class="flex items-center gap-2 cursor-pointer">
+<input type="checkbox" class="form-checkbox h-4 w-4 text-primary rounded border-gray-300 focus:ring-primary">
+<span class="text-gray-700">Bengali</span>
+</label>
+<label class="flex items-center gap-2 cursor-pointer">
+<input type="checkbox" class="form-checkbox h-4 w-4 text-primary rounded border-gray-300 focus:ring-primary">
+<span class="text-gray-700">Tamil</span>
+</label>
+<label class="flex items-center gap-2 cursor-pointer">
+<input type="checkbox" class="form-checkbox h-4 w-4 text-primary rounded border-gray-300 focus:ring-primary">
+<span class="text-gray-700">Telugu</span>
+</label>
+</div>
+</div>
+<div>
+<h3 class="font-medium text-gray-800 mb-2">Sort By</h3>
+<div class="space-y-2">
+<label class="flex items-center gap-2 cursor-pointer">
+<input type="radio" name="sort" checked class="form-radio h-4 w-4 text-primary border-gray-300 focus:ring-primary">
+<span class="text-gray-700">Alphabetical (A-Z)</span>
+</label>
+<label class="flex items-center gap-2 cursor-pointer">
+<input type="radio" name="sort" class="form-radio h-4 w-4 text-primary border-gray-300 focus:ring-primary">
+<span class="text-gray-700">Alphabetical (Z-A)</span>
+</label>
+<label class="flex items-center gap-2 cursor-pointer">
+<input type="radio" name="sort" class="form-radio h-4 w-4 text-primary border-gray-300 focus:ring-primary">
+<span class="text-gray-700">Most Popular</span>
+</label>
+<label class="flex items-center gap-2 cursor-pointer">
+<input type="radio" name="sort" class="form-radio h-4 w-4 text-primary border-gray-300 focus:ring-primary">
+<span class="text-gray-700">Recently Updated</span>
+</label>
+</div>
+</div>
+</div>
+<div class="flex justify-end mt-4">
+<button class="bg-gray-100 text-gray-700 px-4 py-2 !rounded-button mr-2 whitespace-nowrap hover:bg-gray-200">
+Reset Filters
+</button>
+<button class="bg-primary text-white px-4 py-2 !rounded-button whitespace-nowrap hover:bg-opacity-90">
+Apply Filters
+</button>
+</div>
+</div>
+</div>
+
+<div class="mb-8">
+<h2 class="text-xl font-semibold text-gray-800 mb-4">Popular Topics</h2>
+<div class="popular-topics-scroll overflow-x-auto pb-4">
+<div class="flex space-x-4 min-w-max">
+<a href="#" class="bg-white shadow-sm hover:shadow-md transition-all px-4 py-3 !rounded-lg flex items-center gap-3 border border-gray-100">
+<div class="w-10 h-10 flex items-center justify-center bg-[#FF9933] bg-opacity-10 !rounded-full text-[#FF9933]">
+<i class="ri-scales-3-line"></i>
+</div>
+<span class="font-medium text-gray-800">Right to Equality</span>
+</a>
+<a href="#" class="bg-white shadow-sm hover:shadow-md transition-all px-4 py-3 !rounded-lg flex items-center gap-3 border border-gray-100">
+<div class="w-10 h-10 flex items-center justify-center bg-primary bg-opacity-10 !rounded-full text-primary">
+<i class="ri-file-text-line"></i>
+</div>
+<span class="font-medium text-gray-800">RTI Applications</span>
+</a>
+<a href="#" class="bg-white shadow-sm hover:shadow-md transition-all px-4 py-3 !rounded-lg flex items-center gap-3 border border-gray-100">
+<div class="w-10 h-10 flex items-center justify-center bg-[#138808] bg-opacity-10 !rounded-full text-[#138808]">
+<i class="ri-home-4-line"></i>
+</div>
+<span class="font-medium text-gray-800">Property Registration</span>
+</a>
+<a href="#" class="bg-white shadow-sm hover:shadow-md transition-all px-4 py-3 !rounded-lg flex items-center gap-3 border border-gray-100">
+<div class="w-10 h-10 flex items-center justify-center bg-[#FF9933] bg-opacity-10 !rounded-full text-[#FF9933]">
+<i class="ri-criminal-line"></i>
+</div>
+<span class="font-medium text-gray-800">FIR Filing Process</span>
+</a>
+<a href="#" class="bg-white shadow-sm hover:shadow-md transition-all px-4 py-3 !rounded-lg flex items-center gap-3 border border-gray-100">
+<div class="w-10 h-10 flex items-center justify-center bg-primary bg-opacity-10 !rounded-full text-primary">
+<i class="ri-user-heart-line"></i>
+</div>
+<span class="font-medium text-gray-800">Domestic Violence Protection</span>
+</a>
+<a href="#" class="bg-white shadow-sm hover:shadow-md transition-all px-4 py-3 !rounded-lg flex items-center gap-3 border border-gray-100">
+<div class="w-10 h-10 flex items-center justify-center bg-[#138808] bg-opacity-10 !rounded-full text-[#138808]">
+<i class="ri-briefcase-4-line"></i>
+</div>
+<span class="font-medium text-gray-800">Labor Rights</span>
+</a>
+</div>
+</div>
+</div>
+
+<div id="gridView">
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<a href="https://readdy.ai/home/d1f7711b-cca5-4813-ac9e-56dc8ef41008/0abf9d5e-f0c1-49d0-81f9-12655ebcd390" data-readdy="true" class="topic-card bg-white shadow-sm !rounded-lg overflow-hidden border border-gray-100">
+<div class="h-3 bg-[#FF9933]"></div>
+<div class="p-6">
+<div class="w-16 h-16 category-icon flex items-center justify-center bg-[#FF9933] bg-opacity-10 !rounded-full text-[#FF9933] mb-4">
+<i class="ri-scales-3-line ri-2x"></i>
+</div>
+<h3 class="text-xl font-semibold text-gray-800 mb-2">Fundamental Rights</h3>
+<p class="text-gray-600 mb-4">Learn about the six fundamental rights guaranteed by the Indian Constitution, including Right to Equality, Freedom, Against Exploitation, Religious Freedom, Cultural & Educational Rights, and Constitutional Remedies.</p>
+<div class="flex items-center text-primary">
+<span>Explore topics</span>
+<span class="w-5 h-5 flex items-center justify-center ml-2">
+<i class="ri-arrow-right-line"></i>
+</span>
+</div>
+</div>
+</a>
+
+<a href="https://readdy.ai/home/d1f7711b-cca5-4813-ac9e-56dc8ef41008/0abf9d5e-f0c1-49d0-81f9-12655ebcd390" data-readdy="true" class="topic-card bg-white shadow-sm !rounded-lg overflow-hidden border border-gray-100">
+<div class="h-3 bg-primary"></div>
+<div class="p-6">
+<div class="w-16 h-16 category-icon flex items-center justify-center bg-primary bg-opacity-10 !rounded-full text-primary mb-4">
+<i class="ri-shopping-bag-3-line ri-2x"></i>
+</div>
+<h3 class="text-xl font-semibold text-gray-800 mb-2">Consumer Rights</h3>
+<p class="text-gray-600 mb-4">Understand your rights as a consumer under the Consumer Protection Act, including protection against unfair trade practices, right to information, and redressal mechanisms for consumer disputes.</p>
+<div class="flex items-center text-primary">
+<span>Explore topics</span>
+<span class="w-5 h-5 flex items-center justify-center ml-2">
+<i class="ri-arrow-right-line"></i>
+</span>
+</div>
+</div>
+</a>
+
+<a href="https://readdy.ai/home/d1f7711b-cca5-4813-ac9e-56dc8ef41008/0abf9d5e-f0c1-49d0-81f9-12655ebcd390" data-readdy="true" class="topic-card bg-white shadow-sm !rounded-lg overflow-hidden border border-gray-100">
+<div class="h-3 bg-[#138808]"></div>
+<div class="p-6">
+<div class="w-16 h-16 category-icon flex items-center justify-center bg-[#138808] bg-opacity-10 !rounded-full text-[#138808] mb-4">
+<i class="ri-home-4-line ri-2x"></i>
+</div>
+<h3 class="text-xl font-semibold text-gray-800 mb-2">Property Laws</h3>
+<p class="text-gray-600 mb-4">Comprehensive guide to property laws in India, covering property registration, inheritance rights, tenant-landlord relationships, land acquisition, and dispute resolution mechanisms.</p>
+<div class="flex items-center text-primary">
+<span>Explore topics</span>
+<span class="w-5 h-5 flex items-center justify-center ml-2">
+<i class="ri-arrow-right-line"></i>
+</span>
+</div>
+</div>
+</a>
+
+<a href="https://readdy.ai/home/d1f7711b-cca5-4813-ac9e-56dc8ef41008/0abf9d5e-f0c1-49d0-81f9-12655ebcd390" data-readdy="true" class="topic-card bg-white shadow-sm !rounded-lg overflow-hidden border border-gray-100">
+<div class="h-3 bg-[#FF9933]"></div>
+<div class="p-6">
+<div class="w-16 h-16 category-icon flex items-center justify-center bg-[#FF9933] bg-opacity-10 !rounded-full text-[#FF9933] mb-4">
+<i class="ri-user-heart-line ri-2x"></i>
+</div>
+<h3 class="text-xl font-semibold text-gray-800 mb-2">Family Laws</h3>
+<p class="text-gray-600 mb-4">Information on various family laws in India, including marriage laws, divorce procedures, adoption regulations, maintenance rights, guardianship, and protection against domestic violence.</p>
+<div class="flex items-center text-primary">
+<span>Explore topics</span>
+<span class="w-5 h-5 flex items-center justify-center ml-2">
+<i class="ri-arrow-right-line"></i>
+</span>
+</div>
+</div>
+</a>
+
+<a href="https://readdy.ai/home/d1f7711b-cca5-4813-ac9e-56dc8ef41008/0abf9d5e-f0c1-49d0-81f9-12655ebcd390" data-readdy="true" class="topic-card bg-white shadow-sm !rounded-lg overflow-hidden border border-gray-100">
+<div class="h-3 bg-primary"></div>
+<div class="p-6">
+<div class="w-16 h-16 category-icon flex items-center justify-center bg-primary bg-opacity-10 !rounded-full text-primary mb-4">
+<i class="ri-briefcase-4-line ri-2x"></i>
+</div>
+<h3 class="text-xl font-semibold text-gray-800 mb-2">Labor Rights</h3>
+<p class="text-gray-600 mb-4">Detailed information on labor laws in India, covering minimum wages, working conditions, social security benefits, maternity benefits, and protection against workplace harassment.</p>
+<div class="flex items-center text-primary">
+<span>Explore topics</span>
+<span class="w-5 h-5 flex items-center justify-center ml-2">
+<i class="ri-arrow-right-line"></i>
+</span>
+</div>
+</div>
+</a>
+
+<a href="https://readdy.ai/home/d1f7711b-cca5-4813-ac9e-56dc8ef41008/0abf9d5e-f0c1-49d0-81f9-12655ebcd390" data-readdy="true" class="topic-card bg-white shadow-sm !rounded-lg overflow-hidden border border-gray-100">
+<div class="h-3 bg-[#138808]"></div>
+<div class="p-6">
+<div class="w-16 h-16 category-icon flex items-center justify-center bg-[#138808] bg-opacity-10 !rounded-full text-[#138808] mb-4">
+<i class="ri-file-text-line ri-2x"></i>
+</div>
+<h3 class="text-xl font-semibold text-gray-800 mb-2">RTI Applications</h3>
+<p class="text-gray-600 mb-4">Step-by-step guide on filing Right to Information (RTI) applications, including the filing process, eligible information, appeal procedures, exemptions, and fee structure.</p>
+<div class="flex items-center text-primary">
+<span>Explore topics</span>
+<span class="w-5 h-5 flex items-center justify-center ml-2">
+<i class="ri-arrow-right-line"></i>
+</span>
+</div>
+</div>
+</a>
+
+<a href="https://readdy.ai/home/d1f7711b-cca5-4813-ac9e-56dc8ef41008/0abf9d5e-f0c1-49d0-81f9-12655ebcd390" data-readdy="true" class="topic-card bg-white shadow-sm !rounded-lg overflow-hidden border border-gray-100">
+<div class="h-3 bg-[#FF9933]"></div>
+<div class="p-6">
+<div class="w-16 h-16 category-icon flex items-center justify-center bg-[#FF9933] bg-opacity-10 !rounded-full text-[#FF9933] mb-4">
+<i class="ri-criminal-line ri-2x"></i>
+</div>
+<h3 class="text-xl font-semibold text-gray-800 mb-2">Criminal Procedure</h3>
+<p class="text-gray-600 mb-4">Comprehensive information on criminal procedures in India, including FIR filing, bail procedures, rights during arrest, trial process, and legal representation in criminal cases.</p>
+<div class="flex items-center text-primary">
+<span>Explore topics</span>
+<span class="w-5 h-5 flex items-center justify-center ml-2">
+<i class="ri-arrow-right-line"></i>
+</span>
+</div>
+</div>
+</a>
+
+<a href="https://readdy.ai/home/d1f7711b-cca5-4813-ac9e-56dc8ef41008/0abf9d5e-f0c1-49d0-81f9-12655ebcd390" data-readdy="true" class="topic-card bg-white shadow-sm !rounded-lg overflow-hidden border border-gray-100">
+<div class="h-3 bg-primary"></div>
+<div class="p-6">
+<div class="w-16 h-16 category-icon flex items-center justify-center bg-primary bg-opacity-10 !rounded-full text-primary mb-4">
+<i class="ri-government-line ri-2x"></i>
+</div>
+<h3 class="text-xl font-semibold text-gray-800 mb-2">Public Services</h3>
+<p class="text-gray-600 mb-4">Information on various government schemes and public services, including eligibility criteria, application procedures, and grievance redressal mechanisms for public service delivery.</p>
+<div class="flex items-center text-primary">
+<span>Explore topics</span>
+<span class="w-5 h-5 flex items-center justify-center ml-2">
+<i class="ri-arrow-right-line"></i>
+</span>
+</div>
+</div>
+</a>
+
+<a href="https://readdy.ai/home/d1f7711b-cca5-4813-ac9e-56dc8ef41008/0abf9d5e-f0c1-49d0-81f9-12655ebcd390" data-readdy="true" class="topic-card bg-white shadow-sm !rounded-lg overflow-hidden border border-gray-100">
+<div class="h-3 bg-[#138808]"></div>
+<div class="p-6">
+<div class="w-16 h-16 category-icon flex items-center justify-center bg-[#138808] bg-opacity-10 !rounded-full text-[#138808] mb-4">
+<i class="ri-bank-line ri-2x"></i>
+</div>
+<h3 class="text-xl font-semibold text-gray-800 mb-2">Banking & Finance Laws</h3>
+<p class="text-gray-600 mb-4">Information on banking and finance laws in India, including banking regulations, financial consumer protection, debt recovery procedures, and digital payment regulations.</p>
+<div class="flex items-center text-primary">
+<span>Explore topics</span>
+<span class="w-5 h-5 flex items-center justify-center ml-2">
+<i class="ri-arrow-right-line"></i>
+</span>
+</div>
+</div>
+</a>
+</div>
+</div>
+
+<div id="listView" class="hidden">
+<div class="flex">
+<div class="alphabet-index w-12 bg-white !rounded-lg shadow-sm p-2 mr-4 sticky top-4 self-start">
+<div class="flex flex-col items-center">
+<a href="#sectionA" class="w-8 h-8 flex items-center justify-center hover:bg-primary hover:text-white !rounded-full mb-1">A</a>
+<a href="#sectionB" class="w-8 h-8 flex items-center justify-center hover:bg-primary hover:text-white !rounded-full mb-1">B</a>
+<a href="#sectionC" class="w-8 h-8 flex items-center justify-center hover:bg-primary hover:text-white !rounded-full mb-1">C</a>
+<a href="#sectionD" class="w-8 h-8 flex items-center justify-center hover:bg-primary hover:text-white !rounded-full mb-1">D</a>
+<a href="#sectionE" class="w-8 h-8 flex items-center justify-center hover:bg-primary hover:text-white !rounded-full mb-1">E</a>
+<a href="#sectionF" class="w-8 h-8 flex items-center justify-center hover:bg-primary hover:text-white !rounded-full mb-1">F</a>
+<a href="#sectionG" class="w-8 h-8 flex items-center justify-center hover:bg-primary hover:text-white !rounded-full mb-1">G</a>
+<a href="#sectionH" class="w-8 h-8 flex items-center justify-center hover:bg-primary hover:text-white !rounded-full mb-1">H</a>
+<a href="#sectionI" class="w-8 h-8 flex items-center justify-center hover:bg-primary hover:text-white !rounded-full mb-1">I</a>
+<a href="#sectionL" class="w-8 h-8 flex items-center justify-center hover:bg-primary hover:text-white !rounded-full mb-1">L</a>
+<a href="#sectionP" class="w-8 h-8 flex items-center justify-center hover:bg-primary hover:text-white !rounded-full mb-1">P</a>
+<a href="#sectionR" class="w-8 h-8 flex items-center justify-center hover:bg-primary hover:text-white !rounded-full mb-1">R</a>
+<a href="#sectionT" class="w-8 h-8 flex items-center justify-center hover:bg-primary hover:text-white !rounded-full mb-1">T</a>
+</div>
+</div>
+
+<div class="topic-list flex-1 bg-white !rounded-lg shadow-sm p-6">
+<div id="sectionA" class="mb-8">
+<h2 class="text-2xl font-bold text-primary mb-4 flex items-center">
+<span class="w-8 h-8 flex items-center justify-center bg-primary text-white !rounded-full mr-2">A</span>
+Adoption Laws
+</h2>
+<div class="space-y-4">
+<a href="https://readdy.ai/home/d1f7711b-cca5-4813-ac9e-56dc8ef41008/0abf9d5e-f0c1-49d0-81f9-12655ebcd390" data-readdy="true" class="block p-4 border border-gray-100 !rounded-lg hover:shadow-md transition-all">
+<div class="flex items-start">
+<div class="w-10 h-10 flex items-center justify-center bg-[#FF9933] bg-opacity-10 !rounded-full text-[#FF9933] mr-4 mt-1">
+<i class="ri-parent-line"></i>
+</div>
+<div>
+<h3 class="text-lg font-medium text-gray-800">Adoption Procedures in India</h3>
+<p class="text-gray-600 mt-1">Legal procedures and requirements for adopting a child in India, including eligibility criteria, documentation, and the role of Central Adoption Resource Authority (CARA).</p>
+</div>
+</div>
+</a>
+<a href="https://readdy.ai/home/d1f7711b-cca5-4813-ac9e-56dc8ef41008/0abf9d5e-f0c1-49d0-81f9-12655ebcd390" data-readdy="true" class="block p-4 border border-gray-100 !rounded-lg hover:shadow-md transition-all">
+<div class="flex items-start">
+<div class="w-10 h-10 flex items-center justify-center bg-[#FF9933] bg-opacity-10 !rounded-full text-[#FF9933] mr-4 mt-1">
+<i class="ri-file-list-3-line"></i>
+</div>
+<div>
+<h3 class="text-lg font-medium text-gray-800">Adoption Rights and Responsibilities</h3>
+<p class="text-gray-600 mt-1">Legal rights and responsibilities of adoptive parents and adopted children, including inheritance rights and legal status of adopted children.</p>
+</div>
+</div>
+</a>
+</div>
+</div>
+
+<div id="sectionB" class="mb-8">
+<h2 class="text-2xl font-bold text-primary mb-4 flex items-center">
+<span class="w-8 h-8 flex items-center justify-center bg-primary text-white !rounded-full mr-2">B</span>
+Banking & Finance
+</h2>
+<div class="space-y-4">
+<a href="https://readdy.ai/home/d1f7711b-cca5-4813-ac9e-56dc8ef41008/0abf9d5e-f0c1-49d0-81f9-12655ebcd390" data-readdy="true" class="block p-4 border border-gray-100 !rounded-lg hover:shadow-md transition-all">
+<div class="flex items-start">
+<div class="w-10 h-10 flex items-center justify-center bg-[#138808] bg-opacity-10 !rounded-full text-[#138808] mr-4 mt-1">
+<i class="ri-bank-line"></i>
+</div>
+<div>
+<h3 class="text-lg font-medium text-gray-800">Banking Regulations</h3>
+<p class="text-gray-600 mt-1">Overview of banking regulations in India, including customer rights, account opening procedures, KYC norms, and complaint redressal mechanisms.</p>
+</div>
+</div>
+</a>
+<a href="https://readdy.ai/home/d1f7711b-cca5-4813-ac9e-56dc8ef41008/0abf9d5e-f0c1-49d0-81f9-12655ebcd390" data-readdy="true" class="block p-4 border border-gray-100 !rounded-lg hover:shadow-md transition-all">
+<div class="flex items-start">
+<div class="w-10 h-10 flex items-center justify-center bg-[#138808] bg-opacity-10 !rounded-full text-[#138808] mr-4 mt-1">
+<i class="ri-secure-payment-line"></i>
+</div>
+<div>
+<h3 class="text-lg font-medium text-gray-800">Banking Fraud Protection</h3>
+<p class="text-gray-600 mt-1">Information on protection against banking frauds, including legal remedies, reporting procedures, and liability limitations for unauthorized transactions.</p>
+</div>
+</div>
+</a>
+</div>
+</div>
+
+<div id="sectionC" class="mb-8">
+<h2 class="text-2xl font-bold text-primary mb-4 flex items-center">
+<span class="w-8 h-8 flex items-center justify-center bg-primary text-white !rounded-full mr-2">C</span>
+Consumer Rights
+</h2>
+<div class="space-y-4">
+<a href="https://readdy.ai/home/d1f7711b-cca5-4813-ac9e-56dc8ef41008/0abf9d5e-f0c1-49d0-81f9-12655ebcd390" data-readdy="true" class="block p-4 border border-gray-100 !rounded-lg hover:shadow-md transition-all">
+<div class="flex items-start">
+<div class="w-10 h-10 flex items-center justify-center bg-primary bg-opacity-10 !rounded-full text-primary mr-4 mt-1">
+<i class="ri-shopping-bag-3-line"></i>
+</div>
+<div>
+<h3 class="text-lg font-medium text-gray-800">Consumer Protection Act</h3>
+<p class="text-gray-600 mt-1">Comprehensive overview of the Consumer Protection Act, including consumer rights, unfair trade practices, and product liability provisions.</p>
+</div>
+</div>
+</a>
+<a href="https://readdy.ai/home/d1f7711b-cca5-4813-ac9e-56dc8ef41008/0abf9d5e-f0c1-49d0-81f9-12655ebcd390" data-readdy="true" class="block p-4 border border-gray-100 !rounded-lg hover:shadow-md transition-all">
+<div class="flex items-start">
+<div class="w-10 h-10 flex items-center justify-center bg-primary bg-opacity-10 !rounded-full text-primary mr-4 mt-1">
+<i class="ri-file-paper-2-line"></i>
+</div>
+<div>
+<h3 class="text-lg font-medium text-gray-800">Consumer Complaint Filing</h3>
+<p class="text-gray-600 mt-1">Step-by-step guide on filing consumer complaints, including procedures for approaching Consumer Commissions at district, state, and national levels.</p>
+</div>
+</div>
+</a>
+</div>
+</div>
+
+<div id="sectionF" class="mb-8">
+<h2 class="text-2xl font-bold text-primary mb-4 flex items-center">
+<span class="w-8 h-8 flex items-center justify-center bg-primary text-white !rounded-full mr-2">F</span>
+Fundamental Rights
+</h2>
+<div class="space-y-4">
+<a href="https://readdy.ai/home/d1f7711b-cca5-4813-ac9e-56dc8ef41008/0abf9d5e-f0c1-49d0-81f9-12655ebcd390" data-readdy="true" class="block p-4 border border-gray-100 !rounded-lg hover:shadow-md transition-all">
+<div class="flex items-start">
+<div class="w-10 h-10 flex items-center justify-center bg-[#FF9933] bg-opacity-10 !rounded-full text-[#FF9933] mr-4 mt-1">
+<i class="ri-scales-3-line"></i>
+</div>
+<div>
+<h3 class="text-lg font-medium text-gray-800">Right to Equality (Article 14-18)</h3>
+<p class="text-gray-600 mt-1">Detailed explanation of the Right to Equality under Articles 14-18 of the Indian Constitution, including equality before law, prohibition of discrimination, and abolition of untouchability.</p>
+</div>
+</div>
+</a>
+<a href="https://readdy.ai/home/d1f7711b-cca5-4813-ac9e-56dc8ef41008/0abf9d5e-f0c1-49d0-81f9-12655ebcd390" data-readdy="true" class="block p-4 border border-gray-100 !rounded-lg hover:shadow-md transition-all">
+<div class="flex items-start">
+<div class="w-10 h-10 flex items-center justify-center bg-[#FF9933] bg-opacity-10 !rounded-full text-[#FF9933] mr-4 mt-1">
+<i class="ri-speak-line"></i>
+</div>
+<div>
+<h3 class="text-lg font-medium text-gray-800">Right to Freedom (Article 19-22)</h3>
+<p class="text-gray-600 mt-1">Comprehensive guide on the Right to Freedom under Articles 19-22, including freedom of speech, assembly, association, movement, and protection against arbitrary arrest and detention.</p>
+</div>
+</div>
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="mt-8 flex justify-center">
+<button id="loadMoreBtn" class="bg-white border border-primary text-primary px-6 py-3 !rounded-button font-medium hover:bg-primary hover:text-white transition-all whitespace-nowrap flex items-center justify-center gap-2">
+<span class="w-5 h-5 flex items-center justify-center">
+<i class="ri-refresh-line"></i>
+</span>
+Load More Topics
+</button>
+</div>
+</div>
+</section>
+
+<div id="backToTop" class="fixed bottom-8 right-8 w-12 h-12 flex items-center justify-center bg-primary text-white !rounded-full shadow-lg cursor-pointer opacity-0 transition-opacity duration-300 hover:bg-opacity-90">
+<i class="ri-arrow-up-line ri-lg"></i>
+</div>
+</main>
+
+<footer class="bg-gray-900 text-white py-10">
+<div class="container mx-auto px-4">
+<div class="grid md:grid-cols-4 gap-8">
+<div>
+<h3 class="text-lg font-semibold mb-4">Constitutional Rights Assistant</h3>
+<p class="text-gray-400 text-sm">Empowering citizens with legal knowledge in their preferred language.</p>
+</div>
+<div>
+<h3 class="text-lg font-semibold mb-4">Quick Links</h3>
+<ul class="space-y-2 text-gray-400">
+<li><a href="https://readdy.ai/home/d1f7711b-cca5-4813-ac9e-56dc8ef41008/0abf9d5e-f0c1-49d0-81f9-12655ebcd390" data-readdy="true" class="hover:text-white transition-colors">Home</a></li>
+<li><a href="#" class="hover:text-white transition-colors">About Us</a></li>
+<li><a href="#" class="hover:text-white transition-colors">Legal Topics</a></li>
+<li><a href="https://readdy.ai/home/d1f7711b-cca5-4813-ac9e-56dc8ef41008/0c2bec80-390b-4489-9a6f-725848879716" data-readdy="true" class="hover:text-white transition-colors">FAQ</a></li>
+<li><a href="#" class="hover:text-white transition-colors">Contact</a></li>
+</ul>
+</div>
+<div>
+<h3 class="text-lg font-semibold mb-4">Legal Resources</h3>
+<ul class="space-y-2 text-gray-400">
+<li><a href="#" class="hover:text-white transition-colors">Indian Constitution</a></li>
+<li><a href="#" class="hover:text-white transition-colors">Supreme Court Judgments</a></li>
+<li><a href="#" class="hover:text-white transition-colors">Legal Aid Services</a></li>
+<li><a href="#" class="hover:text-white transition-colors">Government Schemes</a></li>
+</ul>
+</div>
+<div>
+<h3 class="text-lg font-semibold mb-4">Contact Us</h3>
+<ul class="space-y-2 text-gray-400">
+<li class="flex items-center gap-2">
+<i class="ri-mail-line"></i>
+<span>support@legalhelp.org</span>
+</li>
+<li class="flex items-center gap-2">
+<i class="ri-phone-line"></i>
+<span>+91 1800-123-4567</span>
+</li>
+<li class="flex items-center gap-2">
+<i class="ri-map-pin-line"></i>
+<span>New Delhi, India</span>
+</li>
+</ul>
+<div class="flex gap-4 mt-4">
+<a href="#" class="w-8 h-8 flex items-center justify-center bg-gray-800 !rounded-full hover:bg-primary transition-all">
+<i class="ri-facebook-fill text-white"></i>
+</a>
+<a href="#" class="w-8 h-8 flex items-center justify-center bg-gray-800 !rounded-full hover:bg-primary transition-all">
+<i class="ri-twitter-x-fill text-white"></i>
+</a>
+<a href="#" class="w-8 h-8 flex items-center justify-center bg-gray-800 !rounded-full hover:bg-primary transition-all">
+<i class="ri-instagram-line text-white"></i>
+</a>
+<a href="#" class="w-8 h-8 flex items-center justify-center bg-gray-800 !rounded-full hover:bg-primary transition-all">
+<i class="ri-youtube-fill text-white"></i>
+</a>
+</div>
+</div>
+</div>
+<div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-500 text-sm">
+<p>© 2025 Constitutional Rights Assistant. All rights reserved.</p>
+<p class="mt-2">This service provides general legal information and is not a substitute for professional legal advice.</p>
+</div>
+</div>
+</footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Mobile menu toggle
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    
+    mobileMenuBtn.addEventListener('click', function() {
+        mobileMenu.classList.toggle('hidden');
+    });
+    
+    // Filter dropdown toggle
+    const filterToggleBtn = document.getElementById('filterToggleBtn');
+    const filterDropdown = document.getElementById('filterDropdown');
+    
+    filterToggleBtn.addEventListener('click', function() {
+        filterDropdown.classList.toggle('show');
+    });
+    
+    // View toggle (Grid/List)
+    const viewToggleGrid = document.getElementById('viewToggleGrid');
+    const viewToggleList = document.getElementById('viewToggleList');
+    const gridView = document.getElementById('gridView');
+    const listView = document.getElementById('listView');
+    
+    viewToggleGrid.addEventListener('click', function() {
+        gridView.classList.remove('hidden');
+        listView.classList.add('hidden');
+        viewToggleGrid.classList.add('bg-primary', 'text-white');
+        viewToggleGrid.classList.remove('bg-white', 'border', 'border-gray-200', 'text-gray-600');
+        viewToggleList.classList.add('bg-white', 'border', 'border-gray-200', 'text-gray-600');
+        viewToggleList.classList.remove('bg-primary', 'text-white');
+    });
+    
+    viewToggleList.addEventListener('click', function() {
+        gridView.classList.add('hidden');
+        listView.classList.remove('hidden');
+        viewToggleList.classList.add('bg-primary', 'text-white');
+        viewToggleList.classList.remove('bg-white', 'border', 'border-gray-200', 'text-gray-600');
+        viewToggleGrid.classList.add('bg-white', 'border', 'border-gray-200', 'text-gray-600');
+        viewToggleGrid.classList.remove('bg-primary', 'text-white');
+    });
+    
+    // Back to top button
+    const backToTopBtn = document.getElementById('backToTop');
+    
+    window.addEventListener('scroll', function() {
+        if (window.pageYOffset > 300) {
+            backToTopBtn.classList.add('opacity-100');
+        } else {
+            backToTopBtn.classList.remove('opacity-100');
+        }
+    });
+    
+    backToTopBtn.addEventListener('click', function() {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+    
+    // Search input functionality
+    const searchInput = document.getElementById('searchInput');
+    
+    searchInput.addEventListener('focus', function() {
+        this.classList.add('ring-2', 'ring-primary', 'border-transparent');
+    });
+    
+    searchInput.addEventListener('blur', function() {
+        this.classList.remove('ring-2', 'ring-primary', 'border-transparent');
+    });
+    
+    // Load more button functionality
+    const loadMoreBtn = document.getElementById('loadMoreBtn');
+    
+    loadMoreBtn.addEventListener('click', function() {
+        this.innerHTML = '<span class="w-5 h-5 flex items-center justify-center animate-spin"><i class="ri-loader-4-line"></i></span> Loading...';
+        
+        setTimeout(() => {
+            this.innerHTML = '<span class="w-5 h-5 flex items-center justify-center"><i class="ri-check-line"></i></span> All Topics Loaded';
+            this.disabled = true;
+            this.classList.add('bg-gray-100', 'text-gray-500');
+            this.classList.remove('bg-white', 'border-primary', 'text-primary', 'hover:bg-primary', 'hover:text-white');
+        }, 1500);
+    });
+    
+    // Custom checkbox and radio styling
+    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+    const radios = document.querySelectorAll('input[type="radio"]');
+    
+    checkboxes.forEach(checkbox => {
+        checkbox.classList.add('text-primary', 'focus:ring-primary', 'focus:ring-offset-0');
+    });
+    
+    radios.forEach(radio => {
+        radio.classList.add('text-primary', 'focus:ring-primary', 'focus:ring-offset-0');
+    });
+});
+</script>
+</body>
+</html>

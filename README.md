@@ -119,7 +119,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 If you need help or have questions:
 
-- **Email**: manvikaushik3216@gmail.com
+- **Email**: manvikaushik3216@gmail.com or kartikay.singh28005@gmail.com
 
 ## 🙏 Acknowledgments
 

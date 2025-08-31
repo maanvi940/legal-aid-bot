@@ -119,9 +119,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 If you need help or have questions:
 
-- **Email**: support@constitutionalrights.org
-- **Helpline**: 1800-123-4567
-- **Emergency Legal Aid**: +91 98765 43210
+- **Email**: manvikaushik3216@gmail.com
 
 ## 🙏 Acknowledgments
 

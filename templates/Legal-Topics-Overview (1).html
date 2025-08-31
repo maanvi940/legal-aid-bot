@@ -73,22 +73,6 @@ body {
     background: rgba(0, 0, 128, 0.2);
     border-radius: 4px;
 }
-.search-input {
-    background-color: rgba(255, 255, 255, 0.8);
-    border: 1px solid rgba(0, 0, 128, 0.2);
-}
-.search-input:focus {
-    border-color: #000080;
-    box-shadow: 0 0 0 3px rgba(0, 0, 128, 0.1);
-}
-.filter-dropdown {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.3s ease;
-}
-.filter-dropdown.show {
-    max-height: 500px;
-}
 </style>
 </head>
 <body>
@@ -102,10 +86,10 @@ body {
 <h1 class="text-primary text-xl font-semibold">Constitutional Rights Assistant</h1>
 </div>
 <div class="hidden md:flex items-center space-x-6">
-<a href="https://readdy.ai/home/d1f7711b-cca5-4813-ac9e-56dc8ef41008/0abf9d5e-f0c1-49d0-81f9-12655ebcd390" data-readdy="true" class="text-gray-800 hover:text-primary transition-colors">Home</a>
-<a href="https://readdy.ai/home/d1f7711b-cca5-4813-ac9e-56dc8ef41008/0c2bec80-390b-4489-9a6f-725848879716" data-readdy="true" class="text-gray-800 hover:text-primary transition-colors">FAQ</a>
-<a href="#" class="text-primary font-medium transition-colors border-b-2 border-primary">Legal Topics</a>
-<a href="#" class="text-gray-800 hover:text-primary transition-colors">Contact</a>
+<a href="/" id="homeLink" class="text-gray-800 hover:text-primary transition-colors">Home</a>
+<a href="/faq" class="text-gray-800 hover:text-primary transition-colors">FAQ</a>
+<a href="/topics" class="text-gray-800 hover:text-primary transition-colors">Legal Topics</a>
+<a href="/contact" class="text-gray-800 hover:text-primary transition-colors">Contact</a>
 </div>
 <div class="md:hidden">
 <button id="mobileMenuBtn" class="w-10 h-10 flex items-center justify-center text-primary">
@@ -116,10 +100,10 @@ body {
 </div>
 <div id="mobileMenu" class="hidden md:hidden absolute top-16 right-4 bg-white shadow-md p-4 rounded z-50 w-48">
 <div class="flex flex-col space-y-4">
-<a href="https://readdy.ai/home/d1f7711b-cca5-4813-ac9e-56dc8ef41008/0abf9d5e-f0c1-49d0-81f9-12655ebcd390" data-readdy="true" class="text-gray-800 hover:text-primary transition-colors">Home</a>
-<a href="https://readdy.ai/home/d1f7711b-cca5-4813-ac9e-56dc8ef41008/0c2bec80-390b-4489-9a6f-725848879716" data-readdy="true" class="text-gray-800 hover:text-primary transition-colors">FAQ</a>
-<a href="#" class="text-primary font-medium transition-colors">Legal Topics</a>
-<a href="#" class="text-gray-800 hover:text-primary transition-colors">Contact</a>
+<a href="/" class="py-2 px-4 hover:bg-gray-50 rounded text-gray-800">Home</a>
+<a href="/faq" class="py-2 px-4 hover:bg-gray-50 rounded text-gray-800">FAQ</a>
+<a href="/topics" class="py-2 px-4 hover:bg-gray-50 rounded text-gray-800">Legal Topics</a>
+<a href="/contact" class="py-2 px-4 hover:bg-gray-50 rounded text-gray-800">Contact</a>
 </div>
 </div>
 </header>
@@ -132,7 +116,7 @@ body {
 <nav class="flex" aria-label="Breadcrumb">
 <ol class="inline-flex items-center space-x-1 md:space-x-3">
 <li class="inline-flex items-center">
-<a href="https://readdy.ai/home/d1f7711b-cca5-4813-ac9e-56dc8ef41008/0abf9d5e-f0c1-49d0-81f9-12655ebcd390" data-readdy="true" class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-primary">
+<a href="/" data-readdy="true" class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-primary">
 <span class="w-4 h-4 flex items-center justify-center mr-2">
 <i class="ri-home-4-line"></i>
 </span>
@@ -167,146 +151,44 @@ Home
 <section class="py-6">
 <div class="container mx-auto px-4">
 <div class="relative mb-8">
-<div class="flex flex-col md:flex-row gap-4">
-<div class="flex-1 relative">
-<input type="text" id="searchInput" class="search-input w-full py-3 px-4 pl-12 !rounded-button focus:outline-none" placeholder="Search legal topics...">
-<div class="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 flex items-center justify-center text-gray-500">
-<i class="ri-search-line"></i>
-</div>
-</div>
-<button id="filterToggleBtn" class="bg-white border border-gray-200 px-4 py-2 !rounded-button flex items-center justify-center gap-2 whitespace-nowrap hover:bg-gray-50">
-<span class="w-5 h-5 flex items-center justify-center">
-<i class="ri-filter-3-line"></i>
-</span>
-Filter Options
-</button>
-<button class="bg-primary text-white px-4 py-2 !rounded-button flex items-center justify-center gap-2 whitespace-nowrap hover:bg-opacity-90">
-<span class="w-5 h-5 flex items-center justify-center">
-<i class="ri-search-line"></i>
-</span>
-Search
-</button>
-</div>
-<div id="filterDropdown" class="filter-dropdown bg-white border border-gray-200 !rounded mt-2 p-4 shadow-md">
-<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-<div>
-<h3 class="font-medium text-gray-800 mb-2">Categories</h3>
-<div class="space-y-2">
-<label class="flex items-center gap-2 cursor-pointer">
-<input type="checkbox" class="form-checkbox h-4 w-4 text-primary rounded border-gray-300 focus:ring-primary">
-<span class="text-gray-700">Constitutional Law</span>
-</label>
-<label class="flex items-center gap-2 cursor-pointer">
-<input type="checkbox" class="form-checkbox h-4 w-4 text-primary rounded border-gray-300 focus:ring-primary">
-<span class="text-gray-700">Criminal Law</span>
-</label>
-<label class="flex items-center gap-2 cursor-pointer">
-<input type="checkbox" class="form-checkbox h-4 w-4 text-primary rounded border-gray-300 focus:ring-primary">
-<span class="text-gray-700">Civil Law</span>
-</label>
-<label class="flex items-center gap-2 cursor-pointer">
-<input type="checkbox" class="form-checkbox h-4 w-4 text-primary rounded border-gray-300 focus:ring-primary">
-<span class="text-gray-700">Family Law</span>
-</label>
-<label class="flex items-center gap-2 cursor-pointer">
-<input type="checkbox" class="form-checkbox h-4 w-4 text-primary rounded border-gray-300 focus:ring-primary">
-<span class="text-gray-700">Property Law</span>
-</label>
-</div>
-</div>
-<div>
-<h3 class="font-medium text-gray-800 mb-2">Language</h3>
-<div class="space-y-2">
-<label class="flex items-center gap-2 cursor-pointer">
-<input type="checkbox" checked class="form-checkbox h-4 w-4 text-primary rounded border-gray-300 focus:ring-primary">
-<span class="text-gray-700">English</span>
-</label>
-<label class="flex items-center gap-2 cursor-pointer">
-<input type="checkbox" class="form-checkbox h-4 w-4 text-primary rounded border-gray-300 focus:ring-primary">
-<span class="text-gray-700">Hindi</span>
-</label>
-<label class="flex items-center gap-2 cursor-pointer">
-<input type="checkbox" class="form-checkbox h-4 w-4 text-primary rounded border-gray-300 focus:ring-primary">
-<span class="text-gray-700">Bengali</span>
-</label>
-<label class="flex items-center gap-2 cursor-pointer">
-<input type="checkbox" class="form-checkbox h-4 w-4 text-primary rounded border-gray-300 focus:ring-primary">
-<span class="text-gray-700">Tamil</span>
-</label>
-<label class="flex items-center gap-2 cursor-pointer">
-<input type="checkbox" class="form-checkbox h-4 w-4 text-primary rounded border-gray-300 focus:ring-primary">
-<span class="text-gray-700">Telugu</span>
-</label>
-</div>
-</div>
-<div>
-<h3 class="font-medium text-gray-800 mb-2">Sort By</h3>
-<div class="space-y-2">
-<label class="flex items-center gap-2 cursor-pointer">
-<input type="radio" name="sort" checked class="form-radio h-4 w-4 text-primary border-gray-300 focus:ring-primary">
-<span class="text-gray-700">Alphabetical (A-Z)</span>
-</label>
-<label class="flex items-center gap-2 cursor-pointer">
-<input type="radio" name="sort" class="form-radio h-4 w-4 text-primary border-gray-300 focus:ring-primary">
-<span class="text-gray-700">Alphabetical (Z-A)</span>
-</label>
-<label class="flex items-center gap-2 cursor-pointer">
-<input type="radio" name="sort" class="form-radio h-4 w-4 text-primary border-gray-300 focus:ring-primary">
-<span class="text-gray-700">Most Popular</span>
-</label>
-<label class="flex items-center gap-2 cursor-pointer">
-<input type="radio" name="sort" class="form-radio h-4 w-4 text-primary border-gray-300 focus:ring-primary">
-<span class="text-gray-700">Recently Updated</span>
-</label>
-</div>
-</div>
-</div>
-<div class="flex justify-end mt-4">
-<button class="bg-gray-100 text-gray-700 px-4 py-2 !rounded-button mr-2 whitespace-nowrap hover:bg-gray-200">
-Reset Filters
-</button>
-<button class="bg-primary text-white px-4 py-2 !rounded-button whitespace-nowrap hover:bg-opacity-90">
-Apply Filters
-</button>
-</div>
-</div>
+<!-- Search and filter section removed -->
 </div>
 
 <div class="mb-8">
 <h2 class="text-xl font-semibold text-gray-800 mb-4">Popular Topics</h2>
 <div class="popular-topics-scroll overflow-x-auto pb-4">
 <div class="flex space-x-4 min-w-max">
-<a href="#" class="bg-white shadow-sm hover:shadow-md transition-all px-4 py-3 !rounded-lg flex items-center gap-3 border border-gray-100">
+<a href="https://www.google.com/search?q=right+to+equality+India+constitution+fundamental+rights" target="_blank" class="bg-white shadow-sm hover:shadow-md transition-all px-4 py-3 !rounded-lg flex items-center gap-3 border border-gray-100">
 <div class="w-10 h-10 flex items-center justify-center bg-[#FF9933] bg-opacity-10 !rounded-full text-[#FF9933]">
 <i class="ri-scales-3-line"></i>
 </div>
 <span class="font-medium text-gray-800">Right to Equality</span>
 </a>
-<a href="#" class="bg-white shadow-sm hover:shadow-md transition-all px-4 py-3 !rounded-lg flex items-center gap-3 border border-gray-100">
+<a href="https://www.google.com/search?q=rti+applications+India+transparency+information" target="_blank" class="bg-white shadow-sm hover:shadow-md transition-all px-4 py-3 !rounded-lg flex items-center gap-3 border border-gray-100">
 <div class="w-10 h-10 flex items-center justify-center bg-primary bg-opacity-10 !rounded-full text-primary">
 <i class="ri-file-text-line"></i>
 </div>
 <span class="font-medium text-gray-800">RTI Applications</span>
 </a>
-<a href="#" class="bg-white shadow-sm hover:shadow-md transition-all px-4 py-3 !rounded-lg flex items-center gap-3 border border-gray-100">
+<a href="https://www.google.com/search?q=property+registration+India+real+estate+laws" target="_blank" class="bg-white shadow-sm hover:shadow-md transition-all px-4 py-3 !rounded-lg flex items-center gap-3 border border-gray-100">
 <div class="w-10 h-10 flex items-center justify-center bg-[#138808] bg-opacity-10 !rounded-full text-[#138808]">
 <i class="ri-home-4-line"></i>
 </div>
 <span class="font-medium text-gray-800">Property Registration</span>
 </a>
-<a href="#" class="bg-white shadow-sm hover:shadow-md transition-all px-4 py-3 !rounded-lg flex items-center gap-3 border border-gray-100">
+<a href="https://www.google.com/search?q=FIR+filing+process+India+police+complaint+procedure" target="_blank" class="bg-white shadow-sm hover:shadow-md transition-all px-4 py-3 !rounded-lg flex items-center gap-3 border border-gray-100">
 <div class="w-10 h-10 flex items-center justify-center bg-[#FF9933] bg-opacity-10 !rounded-full text-[#FF9933]">
 <i class="ri-criminal-line"></i>
 </div>
 <span class="font-medium text-gray-800">FIR Filing Process</span>
 </a>
-<a href="#" class="bg-white shadow-sm hover:shadow-md transition-all px-4 py-3 !rounded-lg flex items-center gap-3 border border-gray-100">
+<a href="https://www.google.com/search?q=domestic+violence+protection+India+protection+of+women+act+PWDVA" target="_blank" class="bg-white shadow-sm hover:shadow-md transition-all px-4 py-3 !rounded-lg flex items-center gap-3 border border-gray-100">
 <div class="w-10 h-10 flex items-center justify-center bg-primary bg-opacity-10 !rounded-full text-primary">
 <i class="ri-user-heart-line"></i>
 </div>
 <span class="font-medium text-gray-800">Domestic Violence Protection</span>
 </a>
-<a href="#" class="bg-white shadow-sm hover:shadow-md transition-all px-4 py-3 !rounded-lg flex items-center gap-3 border border-gray-100">
+<a href="https://www.google.com/search?q=labor+rights+India+employment+laws+minimum+wage+working+conditions" target="_blank" class="bg-white shadow-sm hover:shadow-md transition-all px-4 py-3 !rounded-lg flex items-center gap-3 border border-gray-100">
 <div class="w-10 h-10 flex items-center justify-center bg-[#138808] bg-opacity-10 !rounded-full text-[#138808]">
 <i class="ri-briefcase-4-line"></i>
 </div>
@@ -318,7 +200,7 @@ Apply Filters
 
 <div id="gridView">
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-<a href="https://readdy.ai/home/d1f7711b-cca5-4813-ac9e-56dc8ef41008/0abf9d5e-f0c1-49d0-81f9-12655ebcd390" data-readdy="true" class="topic-card bg-white shadow-sm !rounded-lg overflow-hidden border border-gray-100">
+<a href="https://www.google.com/search?q=fundamental+rights+India+constitution+article+14+to+32" target="_blank" class="topic-card bg-white shadow-sm !rounded-lg overflow-hidden border border-gray-100">
 <div class="h-3 bg-[#FF9933]"></div>
 <div class="p-6">
 <div class="w-16 h-16 category-icon flex items-center justify-center bg-[#FF9933] bg-opacity-10 !rounded-full text-[#FF9933] mb-4">
@@ -335,7 +217,7 @@ Apply Filters
 </div>
 </a>
 
-<a href="https://readdy.ai/home/d1f7711b-cca5-4813-ac9e-56dc8ef41008/0abf9d5e-f0c1-49d0-81f9-12655ebcd390" data-readdy="true" class="topic-card bg-white shadow-sm !rounded-lg overflow-hidden border border-gray-100">
+<a href="https://www.google.com/search?q=consumer+rights+India+consumer+protection+act+2019" target="_blank" class="topic-card bg-white shadow-sm !rounded-lg overflow-hidden border border-gray-100">
 <div class="h-3 bg-primary"></div>
 <div class="p-6">
 <div class="w-16 h-16 category-icon flex items-center justify-center bg-primary bg-opacity-10 !rounded-full text-primary mb-4">
@@ -352,7 +234,7 @@ Apply Filters
 </div>
 </a>
 
-<a href="https://readdy.ai/home/d1f7711b-cca5-4813-ac9e-56dc8ef41008/0abf9d5e-f0c1-49d0-81f9-12655ebcd390" data-readdy="true" class="topic-card bg-white shadow-sm !rounded-lg overflow-hidden border border-gray-100">
+<a href="https://www.google.com/search?q=property+laws+India+real+estate+registration+inheritance" target="_blank" class="topic-card bg-white shadow-sm !rounded-lg overflow-hidden border border-gray-100">
 <div class="h-3 bg-[#138808]"></div>
 <div class="p-6">
 <div class="w-16 h-16 category-icon flex items-center justify-center bg-[#138808] bg-opacity-10 !rounded-full text-[#138808] mb-4">
@@ -369,7 +251,7 @@ Apply Filters
 </div>
 </a>
 
-<a href="https://readdy.ai/home/d1f7711b-cca5-4813-ac9e-56dc8ef41008/0abf9d5e-f0c1-49d0-81f9-12655ebcd390" data-readdy="true" class="topic-card bg-white shadow-sm !rounded-lg overflow-hidden border border-gray-100">
+<a href="https://www.google.com/search?q=family+laws+India+marriage+divorce+adoption+maintenance" target="_blank" class="topic-card bg-white shadow-sm !rounded-lg overflow-hidden border border-gray-100">
 <div class="h-3 bg-[#FF9933]"></div>
 <div class="p-6">
 <div class="w-16 h-16 category-icon flex items-center justify-center bg-[#FF9933] bg-opacity-10 !rounded-full text-[#FF9933] mb-4">
@@ -386,7 +268,7 @@ Apply Filters
 </div>
 </a>
 
-<a href="https://readdy.ai/home/d1f7711b-cca5-4813-ac9e-56dc8ef41008/0abf9d5e-f0c1-49d0-81f9-12655ebcd390" data-readdy="true" class="topic-card bg-white shadow-sm !rounded-lg overflow-hidden border border-gray-100">
+<a href="https://www.google.com/search?q=labor+rights+India+employment+laws+minimum+wage+working+conditions" target="_blank" class="topic-card bg-white shadow-sm !rounded-lg overflow-hidden border border-gray-100">
 <div class="h-3 bg-primary"></div>
 <div class="p-6">
 <div class="w-16 h-16 category-icon flex items-center justify-center bg-primary bg-opacity-10 !rounded-full text-primary mb-4">
@@ -403,7 +285,7 @@ Apply Filters
 </div>
 </a>
 
-<a href="https://readdy.ai/home/d1f7711b-cca5-4813-ac9e-56dc8ef41008/0abf9d5e-f0c1-49d0-81f9-12655ebcd390" data-readdy="true" class="topic-card bg-white shadow-sm !rounded-lg overflow-hidden border border-gray-100">
+<a href="https://www.google.com/search?q=RTI+applications+India+right+to+information+act+2005+filing+process" target="_blank" class="topic-card bg-white shadow-sm !rounded-lg overflow-hidden border border-gray-100">
 <div class="h-3 bg-[#138808]"></div>
 <div class="p-6">
 <div class="w-16 h-16 category-icon flex items-center justify-center bg-[#138808] bg-opacity-10 !rounded-full text-[#138808] mb-4">
@@ -420,7 +302,7 @@ Apply Filters
 </div>
 </a>
 
-<a href="https://readdy.ai/home/d1f7711b-cca5-4813-ac9e-56dc8ef41008/0abf9d5e-f0c1-49d0-81f9-12655ebcd390" data-readdy="true" class="topic-card bg-white shadow-sm !rounded-lg overflow-hidden border border-gray-100">
+<a href="https://www.google.com/search?q=criminal+procedure+India+FIR+filing+bail+arrest+rights+trial" target="_blank" class="topic-card bg-white shadow-sm !rounded-lg overflow-hidden border border-gray-100">
 <div class="h-3 bg-[#FF9933]"></div>
 <div class="p-6">
 <div class="w-16 h-16 category-icon flex items-center justify-center bg-[#FF9933] bg-opacity-10 !rounded-full text-[#FF9933] mb-4">
@@ -437,7 +319,7 @@ Apply Filters
 </div>
 </a>
 
-<a href="https://readdy.ai/home/d1f7711b-cca5-4813-ac9e-56dc8ef41008/0abf9d5e-f0c1-49d0-81f9-12655ebcd390" data-readdy="true" class="topic-card bg-white shadow-sm !rounded-lg overflow-hidden border border-gray-100">
+<a href="https://www.google.com/search?q=government+schemes+public+services+India+eligibility+application+procedures" target="_blank" class="topic-card bg-white shadow-sm !rounded-lg overflow-hidden border border-gray-100">
 <div class="h-3 bg-primary"></div>
 <div class="p-6">
 <div class="w-16 h-16 category-icon flex items-center justify-center bg-primary bg-opacity-10 !rounded-full text-primary mb-4">
@@ -454,7 +336,7 @@ Apply Filters
 </div>
 </a>
 
-<a href="https://readdy.ai/home/d1f7711b-cca5-4813-ac9e-56dc8ef41008/0abf9d5e-f0c1-49d0-81f9-12655ebcd390" data-readdy="true" class="topic-card bg-white shadow-sm !rounded-lg overflow-hidden border border-gray-100">
+<a href="https://www.google.com/search?q=banking+finance+laws+India+regulations+consumer+protection+debt+recovery" target="_blank" class="topic-card bg-white shadow-sm !rounded-lg overflow-hidden border border-gray-100">
 <div class="h-3 bg-[#138808]"></div>
 <div class="p-6">
 <div class="w-16 h-16 category-icon flex items-center justify-center bg-[#138808] bg-opacity-10 !rounded-full text-[#138808] mb-4">
@@ -500,7 +382,7 @@ Apply Filters
 Adoption Laws
 </h2>
 <div class="space-y-4">
-<a href="https://readdy.ai/home/d1f7711b-cca5-4813-ac9e-56dc8ef41008/0abf9d5e-f0c1-49d0-81f9-12655ebcd390" data-readdy="true" class="block p-4 border border-gray-100 !rounded-lg hover:shadow-md transition-all">
+<a href="/home/d1f7711b-cca5-4813-ac9e-56dc8ef41008/0abf9d5e-f0c1-49d0-81f9-12655ebcd390" data-readdy="true" class="block p-4 border border-gray-100 !rounded-lg hover:shadow-md transition-all">
 <div class="flex items-start">
 <div class="w-10 h-10 flex items-center justify-center bg-[#FF9933] bg-opacity-10 !rounded-full text-[#FF9933] mr-4 mt-1">
 <i class="ri-parent-line"></i>
@@ -511,7 +393,7 @@ Adoption Laws
 </div>
 </div>
 </a>
-<a href="https://readdy.ai/home/d1f7711b-cca5-4813-ac9e-56dc8ef41008/0abf9d5e-f0c1-49d0-81f9-12655ebcd390" data-readdy="true" class="block p-4 border border-gray-100 !rounded-lg hover:shadow-md transition-all">
+<a href="/home/d1f7711b-cca5-4813-ac9e-56dc8ef41008/0abf9d5e-f0c1-49d0-81f9-12655ebcd390" data-readdy="true" class="block p-4 border border-gray-100 !rounded-lg hover:shadow-md transition-all">
 <div class="flex items-start">
 <div class="w-10 h-10 flex items-center justify-center bg-[#FF9933] bg-opacity-10 !rounded-full text-[#FF9933] mr-4 mt-1">
 <i class="ri-file-list-3-line"></i>
@@ -531,7 +413,7 @@ Adoption Laws
 Banking & Finance
 </h2>
 <div class="space-y-4">
-<a href="https://readdy.ai/home/d1f7711b-cca5-4813-ac9e-56dc8ef41008/0abf9d5e-f0c1-49d0-81f9-12655ebcd390" data-readdy="true" class="block p-4 border border-gray-100 !rounded-lg hover:shadow-md transition-all">
+<a href="/home/d1f7711b-cca5-4813-ac9e-56dc8ef41008/0abf9d5e-f0c1-49d0-81f9-12655ebcd390" data-readdy="true" class="block p-4 border border-gray-100 !rounded-lg hover:shadow-md transition-all">
 <div class="flex items-start">
 <div class="w-10 h-10 flex items-center justify-center bg-[#138808] bg-opacity-10 !rounded-full text-[#138808] mr-4 mt-1">
 <i class="ri-bank-line"></i>
@@ -542,7 +424,7 @@ Banking & Finance
 </div>
 </div>
 </a>
-<a href="https://readdy.ai/home/d1f7711b-cca5-4813-ac9e-56dc8ef41008/0abf9d5e-f0c1-49d0-81f9-12655ebcd390" data-readdy="true" class="block p-4 border border-gray-100 !rounded-lg hover:shadow-md transition-all">
+<a href="/home/d1f7711b-cca5-4813-ac9e-56dc8ef41008/0abf9d5e-f0c1-49d0-81f9-12655ebcd390" data-readdy="true" class="block p-4 border border-gray-100 !rounded-lg hover:shadow-md transition-all">
 <div class="flex items-start">
 <div class="w-10 h-10 flex items-center justify-center bg-[#138808] bg-opacity-10 !rounded-full text-[#138808] mr-4 mt-1">
 <i class="ri-secure-payment-line"></i>
@@ -562,7 +444,7 @@ Banking & Finance
 Consumer Rights
 </h2>
 <div class="space-y-4">
-<a href="https://readdy.ai/home/d1f7711b-cca5-4813-ac9e-56dc8ef41008/0abf9d5e-f0c1-49d0-81f9-12655ebcd390" data-readdy="true" class="block p-4 border border-gray-100 !rounded-lg hover:shadow-md transition-all">
+<a href="/home/d1f7711b-cca5-4813-ac9e-56dc8ef41008/0abf9d5e-f0c1-49d0-81f9-12655ebcd390" data-readdy="true" class="block p-4 border border-gray-100 !rounded-lg hover:shadow-md transition-all">
 <div class="flex items-start">
 <div class="w-10 h-10 flex items-center justify-center bg-primary bg-opacity-10 !rounded-full text-primary mr-4 mt-1">
 <i class="ri-shopping-bag-3-line"></i>
@@ -573,7 +455,7 @@ Consumer Rights
 </div>
 </div>
 </a>
-<a href="https://readdy.ai/home/d1f7711b-cca5-4813-ac9e-56dc8ef41008/0abf9d5e-f0c1-49d0-81f9-12655ebcd390" data-readdy="true" class="block p-4 border border-gray-100 !rounded-lg hover:shadow-md transition-all">
+<a href="/home/d1f7711b-cca5-4813-ac9e-56dc8ef41008/0abf9d5e-f0c1-49d0-81f9-12655ebcd390" data-readdy="true" class="block p-4 border border-gray-100 !rounded-lg hover:shadow-md transition-all">
 <div class="flex items-start">
 <div class="w-10 h-10 flex items-center justify-center bg-primary bg-opacity-10 !rounded-full text-primary mr-4 mt-1">
 <i class="ri-file-paper-2-line"></i>
@@ -593,7 +475,7 @@ Consumer Rights
 Fundamental Rights
 </h2>
 <div class="space-y-4">
-<a href="https://readdy.ai/home/d1f7711b-cca5-4813-ac9e-56dc8ef41008/0abf9d5e-f0c1-49d0-81f9-12655ebcd390" data-readdy="true" class="block p-4 border border-gray-100 !rounded-lg hover:shadow-md transition-all">
+<a href="/home/d1f7711b-cca5-4813-ac9e-56dc8ef41008/0abf9d5e-f0c1-49d0-81f9-12655ebcd390" data-readdy="true" class="block p-4 border border-gray-100 !rounded-lg hover:shadow-md transition-all">
 <div class="flex items-start">
 <div class="w-10 h-10 flex items-center justify-center bg-[#FF9933] bg-opacity-10 !rounded-full text-[#FF9933] mr-4 mt-1">
 <i class="ri-scales-3-line"></i>
@@ -604,7 +486,7 @@ Fundamental Rights
 </div>
 </div>
 </a>
-<a href="https://readdy.ai/home/d1f7711b-cca5-4813-ac9e-56dc8ef41008/0abf9d5e-f0c1-49d0-81f9-12655ebcd390" data-readdy="true" class="block p-4 border border-gray-100 !rounded-lg hover:shadow-md transition-all">
+<a href="/home/d1f7711b-cca5-4813-ac9e-56dc8ef41008/0abf9d5e-f0c1-49d0-81f9-12655ebcd390" data-readdy="true" class="block p-4 border border-gray-100 !rounded-lg hover:shadow-md transition-all">
 <div class="flex items-start">
 <div class="w-10 h-10 flex items-center justify-center bg-[#FF9933] bg-opacity-10 !rounded-full text-[#FF9933] mr-4 mt-1">
 <i class="ri-speak-line"></i>
@@ -621,17 +503,6 @@ Fundamental Rights
 </div>
 </div>
 
-<div class="mt-8 flex justify-center">
-<button id="loadMoreBtn" class="bg-white border border-primary text-primary px-6 py-3 !rounded-button font-medium hover:bg-primary hover:text-white transition-all whitespace-nowrap flex items-center justify-center gap-2">
-<span class="w-5 h-5 flex items-center justify-center">
-<i class="ri-refresh-line"></i>
-</span>
-Load More Topics
-</button>
-</div>
-</div>
-</section>
-
 <div id="backToTop" class="fixed bottom-8 right-8 w-12 h-12 flex items-center justify-center bg-primary text-white !rounded-full shadow-lg cursor-pointer opacity-0 transition-opacity duration-300 hover:bg-opacity-90">
 <i class="ri-arrow-up-line ri-lg"></i>
 </div>
@@ -647,11 +518,10 @@ Load More Topics
 <div>
 <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
 <ul class="space-y-2 text-gray-400">
-<li><a href="https://readdy.ai/home/d1f7711b-cca5-4813-ac9e-56dc8ef41008/0abf9d5e-f0c1-49d0-81f9-12655ebcd390" data-readdy="true" class="hover:text-white transition-colors">Home</a></li>
-<li><a href="#" class="hover:text-white transition-colors">About Us</a></li>
-<li><a href="#" class="hover:text-white transition-colors">Legal Topics</a></li>
-<li><a href="https://readdy.ai/home/d1f7711b-cca5-4813-ac9e-56dc8ef41008/0c2bec80-390b-4489-9a6f-725848879716" data-readdy="true" class="hover:text-white transition-colors">FAQ</a></li>
-<li><a href="#" class="hover:text-white transition-colors">Contact</a></li>
+<li><a href="/" class="hover:text-white transition-colors">Home</a></li>
+<li><a href="/topics" class="hover:text-white transition-colors">Legal Topics</a></li>
+<li><a href="/faq" class="hover:text-white transition-colors">FAQ</a></li>
+<li><a href="/contact" class="hover:text-white transition-colors">Contact</a></li>
 </ul>
 </div>
 <div>
@@ -712,14 +582,6 @@ document.addEventListener('DOMContentLoaded', function() {
         mobileMenu.classList.toggle('hidden');
     });
     
-    // Filter dropdown toggle
-    const filterToggleBtn = document.getElementById('filterToggleBtn');
-    const filterDropdown = document.getElementById('filterDropdown');
-    
-    filterToggleBtn.addEventListener('click', function() {
-        filterDropdown.classList.toggle('show');
-    });
-    
     // View toggle (Grid/List)
     const viewToggleGrid = document.getElementById('viewToggleGrid');
     const viewToggleList = document.getElementById('viewToggleList');
@@ -760,31 +622,6 @@ document.addEventListener('DOMContentLoaded', function() {
             top: 0,
             behavior: 'smooth'
         });
-    });
-    
-    // Search input functionality
-    const searchInput = document.getElementById('searchInput');
-    
-    searchInput.addEventListener('focus', function() {
-        this.classList.add('ring-2', 'ring-primary', 'border-transparent');
-    });
-    
-    searchInput.addEventListener('blur', function() {
-        this.classList.remove('ring-2', 'ring-primary', 'border-transparent');
-    });
-    
-    // Load more button functionality
-    const loadMoreBtn = document.getElementById('loadMoreBtn');
-    
-    loadMoreBtn.addEventListener('click', function() {
-        this.innerHTML = '<span class="w-5 h-5 flex items-center justify-center animate-spin"><i class="ri-loader-4-line"></i></span> Loading...';
-        
-        setTimeout(() => {
-            this.innerHTML = '<span class="w-5 h-5 flex items-center justify-center"><i class="ri-check-line"></i></span> All Topics Loaded';
-            this.disabled = true;
-            this.classList.add('bg-gray-100', 'text-gray-500');
-            this.classList.remove('bg-white', 'border-primary', 'text-primary', 'hover:bg-primary', 'hover:text-white');
-        }, 1500);
     });
     
     // Custom checkbox and radio styling

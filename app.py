@@ -7,13 +7,17 @@ import markdown2
 from flask import Flask, request, jsonify, render_template, session
 from deep_translator import GoogleTranslator
 from dotenv import load_dotenv
-from flask_cors import CORS  # Import CORS
+from flask_cors import CORS
+
+# Get the directory where app.py is located
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+ENV_FILE = os.path.join(BASE_DIR, '.env')
 
 # Load environment variables
-load_dotenv()
+load_dotenv(ENV_FILE)
 
 # OpenRouter setup
-OPENROUTER_API_KEY = "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"  # Replace with your actual API key
+OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY")  # Get from environment variable
 OPENROUTER_URL = "https://openrouter.ai/api/v1/chat/completions"
 MODEL = "deepseek/deepseek-r1:free"
 
@@ -50,14 +54,17 @@ def reset_on_reload():
 def home():
     return render_template('index.html')
 
-def home():
+@app.route('/contact')
+def contact():
     return render_template('Constitutional-Rights-Contact-Page.html')
 
-def home():
+@app.route('/topics')
+def topics():
     return render_template('Legal-Topics-Overview (1).html')
 
-def home():
-    return render_template('Constitutional-Rights-Contact-Page.html')
+@app.route('/faq')
+def faq():
+    return render_template('Constitutional-Rights-FAQ (1).html')  # Fixed the template name
 
 @app.route('/chat', methods=['POST'])
 def chat():

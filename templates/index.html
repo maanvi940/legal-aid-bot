@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Legal Help Assistant</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#000080',
+            secondary: '#FF9933'
+          },
+          borderRadius: {
+            'none': '0px',
+            'sm': '4px',
+            DEFAULT: '8px',
+            'md': '12px',
+            'lg': '16px',
+            'xl': '20px',
+            '2xl': '24px',
+            '3xl': '32px',
+            'full': '9999px',
+            'button': '8px'
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.0.0/remixicon.min.css" rel="stylesheet">
+  <style>
+    :where([class^="ri-"])::before { line-height: 1; }
+    @keyframes pulse {
+      0% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.5); opacity: 0.5; }
+      100% { transform: scale(2); opacity: 0; }
+    }
+    .pulse-animation::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      border: 2px solid #000080;
+      animation: pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+    @keyframes highlightInput {
+      0% { box-shadow: 0 0 0 0 rgba(0, 0, 128, 0.4); }
+      70% { box-shadow: 0 0 0 10px rgba(0, 0, 128, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(0, 0, 128, 0); }
+    }
+    body {
+      font-family: 'Lora', serif;
+      background-color: #FDF5E6;
+    }
+    .chat-container {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='40' fill='none' stroke='%23000080' stroke-width='0.2' opacity='0.1'/%3E%3C/svg%3E");
+      background-repeat: repeat;
+      background-size: 100px 100px;
+    }
+    .bot-message {
+      background-color: rgba(255, 153, 51, 0.1);
+      border-left: 3px solid #FF9933;
+    }
+    .user-message {
+      background-color: rgba(19, 136, 8, 0.1);
+      border-right: 3px solid #138808;
+    }
+    .suggestion-chip {
+      border: 1px solid rgba(0, 0, 128, 0.2);
+      background: linear-gradient(to right, rgba(255, 153, 51, 0.05), rgba(19, 136, 8, 0.05));
+    }
+    .suggestion-chip:hover {
+      background: linear-gradient(to right, rgba(255, 153, 51, 0.1), rgba(19, 136, 8, 0.1));
+    }
+    .hero-section {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400' viewBox='0 0 400 400'%3E%3Ctext x='20' y='20' font-family='Arial' font-size='10' fill='%23000080' opacity='0.03' transform='rotate(45 200 200)'%3EWe, the people of India, having solemnly resolved to constitute India into a sovereign democratic republic and to secure to all its citizens: Justice, Liberty, Equality, Fraternity%3C/text%3E%3C/svg%3E");
+      background-repeat: repeat;
+    }
+    .language-selector {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath d='M7 10l5 5 5-5z' fill='%23000080'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 8px center;
+    }
+    .chat-input {
+      background-color: rgba(255, 255, 255, 0.8);
+      border: 1px solid rgba(0, 0, 128, 0.2);
+    }
+    .scroll-pattern {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='20' viewBox='0 0 100 20'%3E%3Cpath d='M0,10 C30,20 70,0 100,10' fill='none' stroke='%23000080' stroke-width='0.5' opacity='0.2'/%3E%3C/svg%3E");
+      background-repeat: repeat-x;
+      background-size: 100px 20px;
+      height: 20px;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <header class="bg-white shadow-md">
+    <div class="container mx-auto px-4 py-3">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center space-x-4">
+          <div class="w-10 h-10 flex items-center justify-center">
+            <img src="https://readdy.ai/api/search-image?query=scales%2520of%2520justice%2520in%2520a%2520shield%252C%2520navy%2520blue%2520color%252C%2520simple%2520logo%252C%2520professional%252C%2520clean%2520lines%252C%2520minimalist%2520design&width=80&height=80&seq=123&orientation=squarish"alt="Legal Assistant Logo" class="h-10">
+          </div>
+          <h1 class="text-primary text-xl font-semibold">Constitutional Rights Assistant</h1>
+        </div>
+        <div class="hidden md:flex items-center space-x-6">
+          <a href="/" id="homeLink" class="text-gray-800 hover:text-primary transition-colors">Home</a>
+          <a href="/faq" class="text-gray-800 hover:text-primary transition-colors">FAQ</a>
+          <a href="/topics" class="text-gray-800 hover:text-primary transition-colors">Legal Topics</a>
+          <a href="/contact" class="text-gray-800 hover:text-primary transition-colors">Contact</a>
+        </div>
+        <div class="md:hidden">
+          <button id="mobileMenuBtn" class="w-10 h-10 flex items-center justify-center text-primary">
+            <i class="ri-menu-line text-2xl"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div id="mobileMenu" class="md:hidden hidden bg-white border-t border-gray-100 py-2">
+      <div class="container mx-auto px-4">
+        <nav class="flex flex-col space-y-2">
+          <a href="/" class="py-2 px-4 hover:bg-gray-50 rounded text-gray-800">Home</a>
+          <a href="/faq" class="py-2 px-4 hover:bg-gray-50 rounded text-gray-800">FAQ</a>
+          <a href="/topics" class="py-2 px-4 hover:bg-gray-50 rounded text-gray-800">Legal Topics</a>
+          <a href="/contact" class="py-2 px-4 hover:bg-gray-50 rounded text-gray-800">Contact</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero-section py-12 md:py-20">
+      <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto text-center">
+          <h1 class="text-3xl md:text-5xl font-bold text-primary mb-4">Know Your Constitutional Rights</h1>
+          <p class="text-lg md:text-xl text-gray-700 mb-6">Get legal assistance in your preferred language through our AI-powered chat and voice assistant.</p>
+          <p class="text-base text-gray-600 mb-8">अपने अधिकारों को जानें और कानूनी सहायता प्राप्त करें</p>
+          <div class="flex flex-col md:flex-row justify-center gap-4 mb-8">
+            <button id="startConsultationBtn" class="bg-[#FF9933] text-white px-6 py-3 rounded-button font-medium hover:bg-opacity-90 transition-all whitespace-nowrap flex items-center justify-center gap-2">
+              <span class="w-6 h-6 flex items-center justify-center">
+                <i class="ri-message-3-line"></i>
+              </span>
+              Start Consultation
+            </button>
+            <button id="voiceAssistBtn" class="bg-[#138808] text-white px-6 py-3 rounded-button font-medium hover:bg-opacity-90 transition-all whitespace-nowrap flex items-center justify-center gap-2">
+              <span class="w-6 h-6 flex items-center justify-center">
+                <i class="ri-mic-line"></i>
+              </span>
+              Voice Assist
+            </button>
+          </div>
+          <div class="flex justify-center mb-6">
+            <div class="relative w-64">
+              <select id="languageSelector" class="language-selector w-full py-2 px-4 pr-10 rounded-button border border-gray-300 appearance-none focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent bg-white">
+                <option value="en">English</option>
+                <option value="hi">हिंदी (Hindi)</option>
+                <option value="bn">বাংলা (Bengali)</option>
+                <option value="te">తెలుగు (Telugu)</option>
+                <option value="ta">தமிழ் (Tamil)</option>
+                <option value="mr">मराठी (Marathi)</option>
+                <option value="gu">ગુજરાતી (Gujarati)</option>
+                <option value="kn">ಕನ್ನಡ (Kannada)</option>
+                <option value="ml">മലയാളം (Malayalam)</option>
+                <option value="pa">ਪੰਜਾਬੀ (Punjabi)</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <div class="scroll-pattern w-full"></div>
+    
+    <section class="py-10">
+      <div class="container mx-auto px-4">
+        <div class="max-w-5xl mx-auto bg-white rounded-lg shadow-lg overflow-hidden">
+            <div class="p-4 bg-primary text-white flex justify-between items-center">
+                <h2 class="text-xl font-semibold">Legal Assistance Chat</h2>
+                <div class="flex items-center gap-2">
+                  <button id="clearChatBtn" class="flex items-center justify-center gap-1 bg-white bg-opacity-20 rounded-md py-1 px-3 hover:bg-opacity-30 transition-all text-sm">
+                    <i class="ri-delete-bin-line"></i>
+                    <span>Clear</span>
+                  </button>
+                  <button id="savePdfBtn" class="flex items-center justify-center gap-1 bg-white bg-opacity-20 rounded-md py-1 px-3 hover:bg-opacity-30 transition-all text-sm">
+                    <i class="ri-file-pdf-line"></i>
+                    <span>Save PDF</span>
+                  </button>
+                </div>
+              </div>    
+          <div id="chatContainer" class="chat-container h-96 overflow-y-auto p-4 space-y-4">
+            <div class="bot-message p-3 rounded-lg max-w-3xl">
+              <p class="text-gray-800">Welcome to the Constitutional Rights Assistant. How can I help you today? You can ask me about your rights, legal procedures, or how to file complaints.</p>
+            </div>
+          </div>
+          <div class="p-4 border-t border-gray-200">
+            <div class="flex flex-wrap gap-2 mb-4">
+              <button class="suggestion-chip px-3 py-2 rounded-full text-sm text-gray-700 hover:shadow-sm transition-all whitespace-nowrap">
+                How to file a complaint?
+              </button>
+              <button class="suggestion-chip px-3 py-2 rounded-full text-sm text-gray-700 hover:shadow-sm transition-all whitespace-nowrap">
+                What are my fundamental rights?
+              </button>
+              <button class="suggestion-chip px-3 py-2 rounded-full text-sm text-gray-700 hover:shadow-sm transition-all whitespace-nowrap">
+                How to file an RTI?
+              </button>
+              <button class="suggestion-chip px-3 py-2 rounded-full text-sm text-gray-700 hover:shadow-sm transition-all whitespace-nowrap">
+                Legal aid services
+              </button>
+            </div>
+            <div class="flex items-center gap-2">
+              <div class="flex-1 relative">
+                <input type="text" id="chatInput" class="chat-input w-full py-3 px-4 rounded-button focus:outline-none focus:ring-2 focus:ring-primary" placeholder="Type your legal question here...">
+              </div>
+              <button id="micButton" class="w-12 h-12 flex items-center justify-center bg-gray-100 rounded-full hover:bg-gray-200 transition-all">
+                <i class="ri-mic-line text-2xl text-primary"></i>
+              </button>
+              <button id="sendButton" class="w-12 h-12 flex items-center justify-center bg-primary rounded-full hover:bg-opacity-90 transition-all">
+                <i class="ri-send-plane-fill text-2xl text-white"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <section class="py-12 bg-white">
+      <div class="container mx-auto px-4">
+        <h2 class="text-2xl md:text-3xl font-bold text-primary text-center mb-8">How Our Legal Assistant Works</h2>
+        <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+          <div class="text-center p-6 rounded-lg border border-gray-100 shadow-sm hover:shadow-md transition-all">
+            <div class="w-16 h-16 bg-[#FF9933] bg-opacity-10 rounded-full flex items-center justify-center mx-auto mb-4">
+              <i class="ri-chat-1-line text-2xl text-[#FF9933]"></i>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-800 mb-2">Chat Assistance</h3>
+            <p class="text-gray-600">Get instant answers to your legal questions through our AI-powered chat assistant in your preferred language.</p>
+          </div>
+          <div class="text-center p-6 rounded-lg border border-gray-100 shadow-sm hover:shadow-md transition-all">
+            <div class="w-16 h-16 bg-primary bg-opacity-10 rounded-full flex items-center justify-center mx-auto mb-4">
+              <i class="ri-mic-line text-2xl text-primary"></i>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-800 mb-2">Voice Interaction</h3>
+            <p class="text-gray-600">Speak naturally in your language and receive voice responses for a more accessible experience.</p>
+          </div>
+          <div class="text-center p-6 rounded-lg border border-gray-100 shadow-sm hover:shadow-md transition-all">
+            <div class="w-16 h-16 bg-[#138808] bg-opacity-10 rounded-full flex items-center justify-center mx-auto mb-4">
+              <i class="ri-file-text-line text-2xl text-[#138808]"></i>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-800 mb-2">Document Guidance</h3>
+            <p class="text-gray-600">Get help with legal documents, applications, and procedures with step-by-step guidance.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <section class="py-12 bg-gray-50">
+      <div class="container mx-auto px-4">
+        <h2 class="text-2xl md:text-3xl font-bold text-primary text-center mb-8">Legal Topics We Cover</h2>
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4 max-w-5xl mx-auto">
+          <div class="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-all border-l-4 border-[#FF9933]">
+            <h3 class="text-lg font-semibold text-gray-800 mb-2">Fundamental Rights</h3>
+            <p class="text-gray-600 text-sm">Right to Equality, Freedom, Against Exploitation, Religious Freedom, Cultural & Educational Rights, Constitutional Remedies</p>
+          </div>
+          <div class="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-all border-l-4 border-primary">
+            <h3 class="text-lg font-semibold text-gray-800 mb-2">Consumer Rights</h3>
+            <p class="text-gray-600 text-sm">Consumer Protection Act, Filing complaints, Redressal mechanisms, E-commerce regulations, Product safety</p>
+          </div>
+          <div class="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-all border-l-4 border-[#138808]">
+            <h3 class="text-lg font-semibold text-gray-800 mb-2">Property Laws</h3>
+            <p class="text-gray-600 text-sm">Property registration, Inheritance rights, Tenant rights, Land acquisition, Dispute resolution</p>
+          </div>
+          <div class="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-all border-l-4 border-[#FF9933]">
+            <h3 class="text-lg font-semibold text-gray-800 mb-2">Family Laws</h3>
+            <p class="text-gray-600 text-sm">Marriage, Divorce, Adoption, Maintenance, Guardianship, Domestic violence protection</p>
+          </div>
+          <div class="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-all border-l-4 border-primary">
+            <h3 class="text-lg font-semibold text-gray-800 mb-2">Labor Rights</h3>
+            <p class="text-gray-600 text-sm">Minimum wages, Working conditions, Social security, Maternity benefits, Workplace harassment</p>
+          </div>
+          <div class="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-all border-l-4 border-[#138808]">
+            <h3 class="text-lg font-semibold text-gray-800 mb-2">RTI Applications</h3>
+            <p class="text-gray-600 text-sm">Filing process, Eligible information, Appeal procedures, Exemptions, Fee structure</p>
+          </div>
+          <div class="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-all border-l-4 border-[#FF9933]">
+            <h3 class="text-lg font-semibold text-gray-800 mb-2">Criminal Procedure</h3>
+            <p class="text-gray-600 text-sm">FIR filing, Bail procedures, Rights during arrest, Trial process, Legal representation</p>
+          </div>
+          <div class="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-all border-l-4 border-primary">
+            <h3 class="text-lg font-semibold text-gray-800 mb-2">Public Services</h3>
+            <p class="text-gray-600 text-sm">Government schemes, Eligibility criteria, Application procedures, Grievance redressal</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <section class="py-12">
+      <div class="container mx-auto px-4">
+        <div class="max-w-3xl mx-auto text-center">
+          <h2 class="text-2xl md:text-3xl font-bold text-primary mb-4">Start Your Legal Consultation Today</h2>
+          <p class="text-gray-700 mb-8">Our AI-powered assistant is available 24/7 to help you understand your rights and navigate legal procedures in your preferred language.</p>
+          <button id="getStartedBtn" class="bg-primary text-white px-8 py-4 rounded-button font-medium hover:bg-opacity-90 transition-all whitespace-nowrap">
+            Get Started Now
+          </button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Voice Modal -->
+  <div id="voiceModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+    <div class="bg-white rounded-lg p-6 max-w-md w-full mx-4">
+      <div class="text-center">
+        <div class="relative w-24 h-24 mx-auto mb-6">
+          <div class="w-24 h-24 rounded-full bg-primary bg-opacity-10 flex items-center justify-center pulse-animation">
+            <i class="ri-mic-line text-4xl text-primary"></i>
+          </div>
+        </div>
+        <h3 class="text-xl font-semibold mb-2">Listening...</h3>
+        <p class="text-gray-600 mb-6">Speak your legal question now</p>
+        <button id="stopVoice" class="bg-red-500 text-white px-6 py-2 rounded-full hover:bg-opacity-90 transition-all">
+          Stop
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <footer class="bg-gray-900 text-white py-10">
+    <div class="container mx-auto px-4">
+      <div class="grid md:grid-cols-4 gap-8">
+        <div>
+          <h3 class="text-lg font-semibold mb-4">Constitutional Rights Assistant</h3>
+          <p class="text-gray-400 text-sm">Empowering citizens with legal knowledge in their preferred language.</p>
+        </div>
+        <div>
+          <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
+          <ul class="space-y-2 text-gray-400">
+            <li><a href="/" class="hover:text-white transition-colors">Home</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">About Us</a></li>
+            <li><a href="/topics" class="hover:text-white transition-colors">Legal Topics</a></li>
+            <li><a href="/faq" class="hover:text-white transition-colors">FAQ</a></li>
+            <li><a href="/contact" class="hover:text-white transition-colors">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="text-lg font-semibold mb-4">Legal Resources</h3>
+          <ul class="space-y-2 text-gray-400">
+            <li><a href="#" class="hover:text-white transition-colors">Indian Constitution</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">Supreme Court Judgments</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">Legal Aid Services</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">Government Schemes</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="text-lg font-semibold mb-4">Contact Us</h3>
+          <ul class="space-y-2 text-gray-400">
+            <li class="flex items-center gap-2">
+              <i class="ri-mail-line"></i>
+              <span>support@legalhelp.org</span>
+            </li>
+            <li class="flex items-center gap-2">
+              <i class="ri-phone-line"></i>
+              <span>+91 1800-123-4567</span>
+            </li>
+            <li class="flex items-center gap-2">
+              <i class="ri-map-pin-line"></i>
+              <span>New Delhi, India</span>
+            </li>
+          </ul>
+          <div class="flex gap-4 mt-4">
+            <a href="#" class="w-8 h-8 flex items-center justify-center bg-gray-800 rounded-full hover:bg-primary transition-all">
+              <i class="ri-facebook-fill text-white"></i>
+            </a>
+            <a href="#" class="w-8 h-8 flex items-center justify-center bg-gray-800 rounded-full hover:bg-primary transition-all">
+              <i class="ri-twitter-x-fill text-white"></i>
+            </a>
+            <a href="#" class="w-8 h-8 flex items-center justify-center bg-gray-800 rounded-full hover:bg-primary transition-all">
+              <i class="ri-instagram-line text-white"></i>
+            </a>
+            <a href="#" class="w-8 h-8 flex items-center justify-center bg-gray-800 rounded-full hover:bg-primary transition-all">
+              <i class="ri-youtube-fill text-white"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-500 text-sm">
+        <p>© 2025 Constitutional Rights Assistant. All rights reserved.</p>
+        <p class="mt-2">This service provides general legal information and is not a substitute for professional legal advice.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function addCssToHead() {
+        const styleElement = document.createElement('style');
+        styleElement.textContent = `
+            .typing-indicator {
+            display: flex;
+            align-items: center;
+            padding: 10px 0;
+            }
+            
+            .typing-indicator span {
+            height: 8px;
+            width: 8px;
+            float: left;
+            margin: 0 1px;
+            background-color: #000080;
+            display: block;
+            border-radius: 50%;
+            opacity: 0.4;
+            }
+            
+            .typing-indicator span:nth-of-type(1) {
+            animation: 1s blink infinite 0.3333s;
+            }
+            
+            .typing-indicator span:nth-of-type(2) {
+            animation: 1s blink infinite 0.6666s;
+            }
+            
+            .typing-indicator span:nth-of-type(3) {
+            animation: 1s blink infinite 0.9999s;
+            }
+            
+            @keyframes blink {
+            50% {
+                opacity: 1;
+            }
+            }
+        `;
+        document.head.appendChild(styleElement);
+        }
+        document.addEventListener('DOMContentLoaded', function() {
+        addCssToHead();
+        addJsPdfScript();
+        });
+
+    document.addEventListener('DOMContentLoaded', function() {
+      // Get all DOM elements
+      const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+      const mobileMenu = document.getElementById('mobileMenu');
+      const startConsultationBtn = document.getElementById('startConsultationBtn');
+      const getStartedBtn = document.getElementById('getStartedBtn');
+      const chatContainer = document.getElementById('chatContainer');
+      const chatInput = document.getElementById('chatInput');
+      const sendButton = document.getElementById('sendButton');
+      const micButton = document.getElementById('micButton');
+      const voiceAssistBtn = document.getElementById('voiceAssistBtn');
+      const voiceModal = document.getElementById('voiceModal');
+      const stopVoice = document.getElementById('stopVoice');
+      const languageSelector = document.getElementById('languageSelector');
+      const suggestionChips = document.querySelectorAll('.suggestion-chip');
+
+      // Toggle mobile menu
+      if (mobileMenuBtn) {
+        mobileMenuBtn.addEventListener('click', function() {
+          mobileMenu.classList.toggle('hidden');
+        });
+      }
+
+      // Handle suggestion chips
+      if (suggestionChips && suggestionChips.length > 0) {
+        console.log('Found suggestion chips:', suggestionChips.length); // Debug log
+        suggestionChips.forEach((chip, index) => {
+          console.log(`Adding click listener to chip ${index}:`, chip.textContent); // Debug log
+          chip.addEventListener('click', function() {
+            console.log('Chip clicked:', this.textContent); // Debug log
+            const questionText = this.textContent.trim();
+            
+            // Add visual feedback
+            this.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+              this.style.transform = 'scale(1)';
+            }, 150);
+            
+            // Copy the question to the chat input
+            if (chatInput) {
+              chatInput.value = questionText;
+              
+              // Focus on the input
+              chatInput.focus();
+              
+              // Highlight the text so user can easily edit
+              chatInput.select();
+              
+              // Show a subtle hint
+              const hint = document.createElement('div');
+              hint.className = 'text-xs text-gray-500 mt-1 text-center';
+              hint.textContent = 'Question copied! Edit if needed and press Enter or click Send.';
+              hint.style.animation = 'fadeIn 0.3s ease-in';
+              
+              const chatInputContainer = chatInput.parentElement;
+              chatInputContainer.appendChild(hint);
+              
+              // Remove hint after 3 seconds
+              setTimeout(() => {
+                if (hint.parentElement) {
+                  hint.parentElement.removeChild(hint);
+                }
+              }, 3000);
+            }
+          });
+        });
+      } else {
+        console.log('No suggestion chips found'); // Debug log
+      }
+
+      // Clear chat button
+      const clearChatBtn = document.getElementById('clearChatBtn');
+      if (clearChatBtn) {
+        clearChatBtn.addEventListener('click', function() {
+          if (window.confirm('Are you sure you want to clear the chat history?')) {
+            clearChat();
+          }
+        });
+      }
+      
+      // Save PDF button
+      const savePdfBtn = document.getElementById('savePdfBtn');
+      if (savePdfBtn) {
+        savePdfBtn.addEventListener('click', function() {
+          const originalText = this.innerHTML;
+          this.innerHTML = '<i class="ri-loader-4-line animate-spin"></i> <span>Processing...</span>';
+          this.disabled = true;
+          
+          setTimeout(() => {
+            saveChatAsPdf();
+            
+            setTimeout(() => {
+              this.innerHTML = originalText;
+              this.disabled = false;
+            }, 1000);
+          }, 100);
+        });
+      }
+
+      // Send button functionality
+      if (sendButton) {
+        sendButton.addEventListener('click', () => {
+          if (chatInput && chatInput.value.trim()) {
+            sendQuery(chatInput.value);
+          }
+        });
+      }
+
+      // Enter key functionality
+      if (chatInput) {
+        chatInput.addEventListener('keypress', (e) => {
+          if (e.key === 'Enter') {
+            e.preventDefault();
+            sendQuery(chatInput.value);
+          }
+        });
+      }
+
+      // Your existing voice recognition code...
+      // (Keep all the voice recognition code as it was)
+    });
+
+    // First, let's add the jsPDF library for PDF creation
+    function addJsPdfScript() {
+    const script = document.createElement('script');
+    script.src = 'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js';
+    document.head.appendChild(script);
+
+    
+    // Add html2canvas as well (needed for jsPDF to capture HTML content)
+    const html2canvasScript = document.createElement('script');
+    html2canvasScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js';
+    document.head.appendChild(html2canvasScript);
+    }
+    
+
+    // Function to clear the chat
+    function clearChat() {
+    // Keep only the first welcome message
+    while (chatContainer.childNodes.length > 1) {
+        chatContainer.removeChild(chatContainer.lastChild);
+    }
+    
+    // Clear chat history in session if you're maintaining it
+    // Also notify the backend to clear history
+    fetch('/chat', {
+        method: 'POST',
+        headers: {
+        'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+        clear_history: true
+        }),
+    }).catch(error => console.error('Error clearing chat history:', error));
+    }
+
+    // Function to save chat as PDF
+    function saveChatAsPdf() {
+    // Create a clone of the chat container to modify for PDF
+    const chatContainerClone = chatContainer.cloneNode(true);
+    
+    // Add some styling for better PDF output
+    chatContainerClone.style.padding = '20px';
+    chatContainerClone.style.backgroundColor = 'white';
+    chatContainerClone.style.width = '100%';
+    chatContainerClone.style.height = 'auto';
+    
+    // Create a wrapper div for the content
+    const wrapper = document.createElement('div');
+    wrapper.style.padding = '30px';
+    wrapper.style.maxWidth = '800px';
+    wrapper.style.margin = '0 auto';
+    
+    // Add a title to the PDF
+    const title = document.createElement('h1');
+    title.style.textAlign = 'center';
+    title.style.color = '#000080';
+    title.style.marginBottom = '20px';
+    title.textContent = 'Constitutional Rights Assistant - Chat Transcript';
+    
+    // Add date and time
+    const dateTime = document.createElement('p');
+    dateTime.style.textAlign = 'center';
+    dateTime.style.marginBottom = '30px';
+    dateTime.style.color = '#666';
+    dateTime.textContent = new Date().toLocaleString();
+    
+    // Assemble the document
+    wrapper.appendChild(title);
+    wrapper.appendChild(dateTime);
+    wrapper.appendChild(chatContainerClone);
+    
+    // Create a temporary container to hold everything
+    const tempContainer = document.createElement('div');
+    tempContainer.style.position = 'absolute';
+    tempContainer.style.left = '-9999px';
+    tempContainer.appendChild(wrapper);
+    document.body.appendChild(tempContainer);
+    
+    // Use html2canvas and jsPDF to create the PDF
+    html2canvas(wrapper, {
+        scale: 2, // Higher scale for better quality
+        useCORS: true,
+        logging: false
+    }).then(canvas => {
+        const imgWidth = 210; // A4 width in mm
+        const pageHeight = 297; // A4 height in mm
+        const imgHeight = canvas.height * imgWidth / canvas.width;
+        let heightLeft = imgHeight;
+        let position = 0;
+        
+        const pdf = new jspdf.jsPDF('p', 'mm');
+        let firstPage = true;
+        
+        // Add image to PDF - possibly across multiple pages
+        while (heightLeft > 0) {
+        if (!firstPage) {
+            pdf.addPage();
+        } else {
+            firstPage = false;
+        }
+        
+        pdf.addImage(canvas, 'PNG', 0, position, imgWidth, imgHeight);
+        heightLeft -= pageHeight;
+        position -= pageHeight;
+        }
+        
+        // Save the PDF
+        pdf.save('constitutional-rights-chat.pdf');
+        
+        // Remove the temporary container
+        document.body.removeChild(tempContainer);
+    });
+    }
+      // Read aloud function using Web Speech API
+        function readAloud(text) {
+        // Cancel any ongoing speech
+        window.speechSynthesis.cancel();
+        
+        // Create a new speech synthesis utterance
+        const utterance = new SpeechSynthesisUtterance(text);
+        
+        // Get the selected language to set the voice
+        const selectedLang = languageSelector.value;
+        
+        // Map language codes to BCP 47 language tags for speech synthesis
+        const langMap = {
+            'en': 'en-IN',
+            'hi': 'hi-IN',
+            'bn': 'bn-IN',
+            'te': 'te-IN',
+            'ta': 'ta-IN',
+            'mr': 'mr-IN',
+            'gu': 'gu-IN',
+            'kn': 'kn-IN',
+            'ml': 'ml-IN',
+            'pa': 'pa-IN'
+        };
+        
+        // Set the language for the utterance
+        utterance.lang = langMap[selectedLang] || 'en-IN';
+        
+        // Remove any existing speaking indicator first
+        const existingIndicator = document.getElementById('speaking-indicator');
+        if (existingIndicator) {
+            document.body.removeChild(existingIndicator);
+        }
+        
+        // Show speaking indicator
+        const speakingIndicator = document.createElement('div');
+        speakingIndicator.id = 'speaking-indicator';
+        speakingIndicator.className = 'fixed bottom-4 right-4 bg-primary text-white py-2 px-4 rounded-full flex items-center gap-2 shadow-lg z-50';
+        speakingIndicator.innerHTML = `
+            <i class="ri-volume-vibrate-line animate-pulse"></i>
+            <span>Speaking...</span>
+            <button id="stop-speaking" class="ml-2 bg-white bg-opacity-20 rounded-full w-6 h-6 flex items-center justify-center hover:bg-opacity-30 transition-colors">
+                <i class="ri-close-line text-sm"></i>
+            </button>
+        `;
+        
+        // Add event listener to stop button using event delegation
+        speakingIndicator.addEventListener('click', function(e) {
+            if (e.target.closest('#stop-speaking')) {
+                window.speechSynthesis.cancel();
+                if (document.getElementById('speaking-indicator')) {
+                    document.body.removeChild(document.getElementById('speaking-indicator'));
+                }
+            }
+        });
+        
+        document.body.appendChild(speakingIndicator);
+        
+        // Handle speech end
+        utterance.onend = function() {
+            const indicator = document.getElementById('speaking-indicator');
+            if (indicator) {
+                document.body.removeChild(indicator);
+            }
+        };
+        
+        // Handle speech error
+        utterance.onerror = function() {
+            const indicator = document.getElementById('speaking-indicator');
+            if (indicator) {
+                document.body.removeChild(indicator);
+            }
+        };
+        
+        // Start speaking
+        window.speechSynthesis.speak(utterance);
+        }
+
+        // Add this to your DOMContentLoaded event listener
+        document.addEventListener('DOMContentLoaded', function() {
+        // Your existing code...
+        
+        // Add event listener for read aloud buttons that might exist at page load
+        document.querySelectorAll('.read-aloud-btn').forEach(button => {
+            button.addEventListener('click', function() {
+            const textToRead = this.closest('.bot-message').querySelector('.ai-response').textContent;
+            readAloud(textToRead);
+            });
+        });
+        });
+      // Append messages to chat
+      function appendMessage(content, className, includeTimestamp = false) {
+        const msgDiv = document.createElement('div');
+        msgDiv.className = className + ' p-3 rounded-lg max-w-3xl';
+        
+        // Create timestamp
+        const timestamp = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        const timestampHtml = includeTimestamp ? 
+            `<div class="text-xs text-gray-500 mt-1 text-right">${timestamp}</div>` : '';
+        
+        // If it's a user message, just use text
+        if (className === 'user-message') {
+            msgDiv.innerHTML = `
+            <div class="flex flex-col">
+                <p class="text-gray-800">${content}</p>
+                ${includeTimestamp ? timestampHtml : ''}
+            </div>
+            `;
+            msgDiv.classList.add('ml-auto');
+        } else {
+            // For bot messages, allow HTML content (the backend returns HTML)
+            msgDiv.innerHTML = `
+            <div class="flex flex-col">
+                <div class="ai-response">${content}</div>
+                ${includeTimestamp ? timestampHtml : ''}
+                ${className === 'bot-message' ? '<button class="read-aloud-btn text-xs text-primary mt-2 flex items-center gap-1"><i class="ri-volume-up-line"></i> Read Aloud</button>' : ''}
+            </div>
+            `;
+            
+            // Add event listener to the read aloud button
+            setTimeout(() => {
+            const readAloudBtn = msgDiv.querySelector('.read-aloud-btn');
+            if (readAloudBtn) {
+                readAloudBtn.addEventListener('click', function() {
+                const textToRead = msgDiv.querySelector('.ai-response').textContent;
+                readAloud(textToRead);
+                });
+            }
+            }, 0);
+        }
+        
+        chatContainer.appendChild(msgDiv);
+        chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+
+      // Send message function
+      async function sendQuery(queryText) {
+        if (!queryText.trim()) return;
+        
+        appendMessage(queryText, 'user-message');
+        chatInput.value = '';
+        
+        // Create and add typing indicator
+        const loadingMsgDiv = document.createElement('div');
+        loadingMsgDiv.className = 'bot-message p-3 rounded-lg max-w-3xl';
+        loadingMsgDiv.innerHTML = `
+            <div class="typing-indicator">
+            <span></span>
+            <span></span>
+            <span></span>
+            </div>
+        `;
+        chatContainer.appendChild(loadingMsgDiv);
+        chatContainer.scrollTop = chatContainer.scrollHeight;
+        
+        try {
+            // Get the selected language
+            const selectedLang = languageSelector.value;
+            
+            // Call the Flask backend API
+            const response = await fetch('/chat', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                query: queryText,
+                lang: selectedLang
+            }),
+            });
+            
+            if (!response.ok) {
+            throw new Error('Network response was not ok');
+            }
+            
+            const data = await response.json();
+            
+            // Remove loading message
+            chatContainer.removeChild(loadingMsgDiv);
+            
+            // Add the bot's response with timestamp
+            appendMessage(data.response, 'bot-message', true);
+        } catch (error) {
+            console.error('Error:', error);
+            
+            // Remove loading message
+            chatContainer.removeChild(loadingMsgDiv);
+            
+            // Show error message
+            appendMessage('Sorry, there was an error processing your request. Please try again.', 'bot-message', true);
+        }
+        }
+  </script>
+</body>
+</html>
